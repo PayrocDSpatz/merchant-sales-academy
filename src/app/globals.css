@@ -3,14 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --ink: #102323;
-  --muted: #5d6c6a;
-  --cream: #f4f1e9;
-  --paper: #fbfaf6;
-  --green: #1a5f50;
-  --green-dark: #0e3f35;
-  --lime: #c9f05b;
-  --line: #dce2db;
+  --ink: #0a0b0a;
+  --muted: #626760;
+  --cream: #ecece4;
+  --paper: #f6f6ef;
+  --green: #167e3b;
+  --green-dark: #06391c;
+  --lime: #baff29;
+  --orange: #ff5c35;
+  --line: #c9cbc1;
 }
 
 * { box-sizing: border-box; }
@@ -26,18 +27,38 @@ a { color: inherit; text-decoration: none; }
 button, input, textarea { font: inherit; }
 
 .container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
-.eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--green); }
-.display { font-family: Georgia, 'Times New Roman', serif; letter-spacing: -.045em; line-height: .98; }
-.card { background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 8px 30px rgba(16,35,35,.05); }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 46px; padding: 0 20px; border-radius: 999px; font-weight: 800; border: 1px solid transparent; cursor: pointer; transition: .2s ease; }
-.btn:hover { transform: translateY(-1px); }
+.eyebrow { font-size: 11px; font-weight: 900; letter-spacing: .19em; text-transform: uppercase; color: var(--green); }
+.display { font-family: Impact, 'Arial Narrow', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -.025em; line-height: .88; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 2px; box-shadow: 7px 7px 0 rgba(10,11,10,.08); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 0 22px; border-radius: 2px; font-weight: 900; text-transform: uppercase; letter-spacing: .04em; font-size: 12px; border: 1px solid transparent; cursor: pointer; transition: .15s ease; }
+.btn:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--orange); }
 .btn-primary { background: var(--ink); color: white; }
 .btn-primary:hover { background: var(--green); }
 .btn-lime { background: var(--lime); color: var(--ink); }
 .btn-outline { border-color: #bfc8c3; background: transparent; }
 .progress { height: 8px; overflow: hidden; border-radius: 99px; background: #e7ebe5; }
 .progress > span { display: block; height: 100%; border-radius: inherit; background: var(--green); }
-.dot-grid { background-image: radial-gradient(rgba(16,35,35,.16) 1px, transparent 1px); background-size: 20px 20px; }
+.dot-grid { background-image: radial-gradient(rgba(10,11,10,.3) 1.4px, transparent 1.4px); background-size: 10px 10px; }
+
+.signal-art { position: relative; color: var(--lime); width: min(620px,100%); margin: auto; }
+.signal-art svg { display:block; width:100%; filter: drop-shadow(14px 14px 0 rgba(0,0,0,.22)); }
+.signal-art .portrait-fill { color: var(--lime); }
+.signal-art .headset { color: #f5f5ed; }
+.signal-art .signal-pill { fill: var(--orange); }
+.signal-art .signal-text,.signal-art .tiny-label,.signal-art .objection-text { fill: var(--ink); font-family: Arial,sans-serif; font-weight:900; }
+.signal-art .signal-text { font-size:15px; letter-spacing:3px; }
+.signal-art .tiny-label { font-size:11px; letter-spacing:2px; }
+.signal-art .objection-text { font-size:21px; }
+.signal-art .objection-card { fill:#f6f6ef; stroke:var(--ink); stroke-width:4px; }
+.signal-art .wave { color:var(--orange); }
+.crosshair { position:absolute; font:900 38px/1 monospace; color:var(--orange); }
+.crosshair-a { top:15%; right:2%; }.crosshair-b { bottom:10%; left:2%; color:var(--lime); }
+.mini-wave { height:84px; display:flex; align-items:center; gap:5px; }
+.mini-wave i { display:block; width:5px; min-height:7px; background:var(--lime); }
+.ticker { overflow:hidden; border-block:2px solid var(--ink); background:var(--lime); white-space:nowrap; }
+.ticker-track { display:inline-block; padding:13px 0; font-weight:900; font-size:13px; letter-spacing:.08em; animation:ticker 22s linear infinite; }
+@keyframes ticker { to { transform:translateX(-50%); } }
+.noise-panel { background-color:var(--ink); background-image:radial-gradient(rgba(186,255,41,.25) 1px,transparent 1px); background-size:7px 7px; }
 
 @media (max-width: 760px) {
   .container { width: min(100% - 28px, 1180px); }

@@ -1,32 +1,72 @@
 import Link from "next/link";
 import { PublicNav } from "@/components/PublicNav";
+import { SignalArt, MiniWaveform } from "@/components/SignalArt";
 import { modules } from "@/data/curriculum";
+
+const ticker = "CALL RELUCTANCE  /  OPENING LINES  /  REAL OBJECTIONS  /  QUALIFIED APPOINTMENTS  /  DAILY CONSISTENCY  /  ";
 
 export default function Home() {
   return <>
     <PublicNav />
-    <section style={{ overflow: "hidden", borderBottom: "1px solid var(--line)" }}>
-      <div className="container" style={{ display: "grid", gridTemplateColumns: "1.08fr .92fr", minHeight: 670, alignItems: "center", gap: 50 }}>
-        <div style={{ padding: "72px 0" }}>
-          <div className="eyebrow">Cold-calling confidence for merchant services</div>
-          <h1 className="display" style={{ fontSize: "clamp(58px, 7vw, 100px)", margin: "24px 0 28px", maxWidth: 800 }}>Make the call.<br/><em style={{ color: "var(--green)", fontWeight: 400 }}>Own the room.</em></h1>
-          <p style={{ fontSize: 20, lineHeight: 1.55, color: "var(--muted)", maxWidth: 620, margin: "0 0 32px" }}>Practical training that helps merchant-services salespeople overcome call reluctance, handle real objections, and consistently book qualified appointments.</p>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}><Link className="btn btn-primary" href="/register">Start your training →</Link><Link className="btn btn-outline" href="#curriculum">Explore curriculum</Link></div>
-          <div style={{ display: "flex", gap: 30, marginTop: 38, fontSize: 13, fontWeight: 750, color: "var(--muted)", flexWrap: "wrap" }}><span>✓ Built for merchant services</span><span>✓ Practical call exercises</span><span>✓ Manager visibility</span></div>
-        </div>
-        <div className="desktop-only" style={{ position: "relative", height: 590 }}>
-          <div className="dot-grid" style={{ position: "absolute", inset: "45px 0 20px 30px", borderRadius: 32, backgroundColor: "var(--green)" }} />
-          <div className="card" style={{ position: "absolute", width: "78%", left: 0, top: 105, padding: 28, transform: "rotate(-3deg)" }}>
-            <div className="eyebrow">Today&apos;s call block</div><h3 style={{ fontFamily: "Georgia,serif", fontSize: 32, margin: "12px 0 24px" }}>Your confidence is built<br/>one dial at a time.</h3>
-            <div style={{ display: "grid", gap: 14 }}>{[["Calls made","18 / 25"],["Conversations","6"],["Appointments","2"]].map(x=><div key={x[0]} style={{ display: "flex", justifyContent: "space-between", paddingBottom: 13, borderBottom: "1px solid var(--line)", fontWeight: 800 }}><span style={{ color: "var(--muted)", fontWeight: 600 }}>{x[0]}</span>{x[1]}</div>)}</div>
+    <main>
+      <section className="hero-noise">
+        <div className="hero-code desktop-only">OUTBOUND//01<br/>SIGNAL ACTIVE</div>
+        <div className="container hero-grid">
+          <div className="hero-copy">
+            <div className="hero-status"><span /> LIVE TRAINING SYSTEM FOR MERCHANT SALES</div>
+            <h1 className="display hero-title">Stop<br/>avoiding<br/><em>the call.</em></h1>
+            <p className="hero-lead">Cold-calling confidence is not something you either have or don&apos;t. It is a trainable response built through repetition, pressure, and honest practice.</p>
+            <div className="hero-actions"><Link className="btn btn-lime" href="/register">Enter the call lab <b>↗</b></Link><Link className="text-link" href="#curriculum">See the system ↓</Link></div>
+            <div className="hero-proof"><b>01</b><span>LESSONS THAT<br/>CHANGE BEHAVIOR</span><b>02</b><span>DRILLS THAT FEEL<br/>LIKE REAL CALLS</span><b>03</b><span>NUMBERS THAT<br/>DON&apos;T LIE</span></div>
           </div>
-          <div style={{ position: "absolute", right: -20, bottom: 65, width: 225, background: "var(--lime)", borderRadius: 18, padding: 22, transform: "rotate(4deg)", boxShadow: "0 18px 50px rgba(0,0,0,.18)" }}><div style={{ fontSize: 34 }}>↗</div><b style={{ display: "block", fontSize: 18, marginTop: 18 }}>Rejection is data.</b><span style={{ fontSize: 13, lineHeight: 1.45, display: "block", marginTop: 7 }}>It is not a verdict on your ability.</span></div>
+          <div className="hero-visual"><SignalArt /></div>
         </div>
-      </div>
-    </section>
-    <section id="how" style={{ background: "var(--ink)", color: "white", padding: "82px 0" }}><div className="container"><div className="eyebrow" style={{ color: "var(--lime)" }}>A better way to get call-ready</div><div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 28, marginTop: 30 }}>{[["01","Learn","Short lessons explain the psychology and mechanics behind effective outbound calls."],["02","Practice","Apply each skill through realistic prompts, objection drills, and guided call planning."],["03","Perform","Track activity, build consistency, and turn conversations into qualified appointments."]].map(x=><div key={x[0]} style={{ borderTop: "1px solid #44605a", paddingTop: 24 }}><span style={{ color: "var(--lime)", fontWeight: 900 }}>{x[0]}</span><h3 style={{ fontFamily: "Georgia,serif", fontSize: 32, margin: "30px 0 14px" }}>{x[1]}</h3><p style={{ color: "#b8c7c3", lineHeight: 1.65 }}>{x[2]}</p></div>)}</div></div></section>
-    <section id="curriculum" style={{ padding: "100px 0" }}><div className="container"><div style={{ maxWidth: 680 }}><div className="eyebrow">The curriculum</div><h2 className="display" style={{ fontSize: 62, margin: "18px 0" }}>From hesitation to consistency.</h2><p style={{ color: "var(--muted)", fontSize: 18, lineHeight: 1.6 }}>Twelve focused modules built around the real moments that determine whether a merchant-services call moves forward.</p></div><div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 14, marginTop: 45 }}>{modules.slice(0,6).map(m=><div className="card" key={m.id} style={{ padding: 24, display: "flex", gap: 18 }}><span style={{ width: 42, height: 42, flex: "0 0 auto", borderRadius: 12, background: m.id===1?"var(--lime)":"#edf0e9", display: "grid", placeItems: "center", fontWeight: 900 }}>{String(m.id).padStart(2,"0")}</span><div><h3 style={{ margin: "2px 0 9px", fontSize: 18 }}>{m.title}</h3><p style={{ margin: 0, color: "var(--muted)", fontSize: 14, lineHeight: 1.5 }}>{m.description}</p></div></div>)}</div></div></section>
-    <section id="teams" style={{ padding: "0 0 100px" }}><div className="container" style={{ background: "var(--green)", color: "white", padding: "65px", borderRadius: 28, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 30 }}><div><div className="eyebrow" style={{ color: "var(--lime)" }}>For sales leaders</div><h2 className="display" style={{ fontSize: 52, margin: "15px 0" }}>Build a team that makes the call.</h2><p style={{ color: "#cfe0db", maxWidth: 620, lineHeight: 1.6 }}>Give every rep a clear training path while managers see progress, knowledge-check results, and practice activity.</p></div><Link className="btn btn-lime" href="/manager">View manager dashboard →</Link></div></section>
-    <footer style={{ padding: "30px 0", borderTop: "1px solid var(--line)" }}><div className="container" style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "var(--muted)" }}><b>Merchant Sales Academy</b><span>Built for the people who make the call.</span></div></footer>
+      </section>
+
+      <div className="ticker"><div className="ticker-track">{ticker}{ticker}{ticker}{ticker}</div></div>
+
+      <section className="manifesto">
+        <div className="container manifesto-grid">
+          <div><span className="index-stamp">THE PROBLEM / 001</span><MiniWaveform /></div>
+          <div>
+            <h2 className="display section-title">You don&apos;t need<br/>another script.</h2>
+            <p className="statement">You need to be able to make the call <mark>when your brain is giving you ten reasons not to.</mark></p>
+            <p className="body-copy">Merchant Sales Academy trains the moment before the dial, the first thirty seconds, the pushback, and the ask. No motivational fog. No product-information dumping. Just deliberate practice for the conversations that create pipeline.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="how" className="call-lab">
+        <div className="container">
+          <div className="section-kicker"><span>THE CALL LAB</span><span>METHOD / 3 PART SYSTEM</span></div>
+          <div className="lab-grid">
+            {[
+              ["01","DECODE","Understand the fear response, avoidance loop, and mental stories that keep your hand off the phone.","KNOW WHAT'S HAPPENING"],
+              ["02","DRILL","Run realistic opening, objection, and appointment-setting reps until the response becomes familiar.","PRACTICE UNDER PRESSURE"],
+              ["03","DIAL","Take the skill into a measured call block. Track actions, conversations, and what needs another rep.","TURN PRACTICE INTO PIPELINE"]
+            ].map((x,i)=><article className={`lab-card lab-${i+1}`} key={x[0]}><div className="lab-top"><span>{x[0]}</span><span>+</span></div><h3>{x[1]}</h3><p>{x[2]}</p><small>{x[3]} →</small></article>)}
+          </div>
+        </div>
+      </section>
+
+      <section id="curriculum" className="curriculum-section">
+        <div className="container">
+          <div className="curriculum-head"><div><span className="index-stamp">TRAINING SEQUENCE / 012</span><h2 className="display section-title">Built for the<br/>hard part.</h2></div><p>Every module attacks a specific point where outbound momentum breaks down.</p></div>
+          <div className="module-list">
+            {modules.slice(0,8).map((m,i)=><Link href={i<2?`/courses/${m.slug}`:"/courses"} key={m.id} className="module-row"><span className="module-num">{String(m.id).padStart(2,"0")}</span><h3>{m.title}</h3><p>{m.description}</p><b>{i===0?"IN PROGRESS":i===1?"READY":"LOCKED"}</b><i>↗</i></Link>)}
+          </div>
+          <Link className="btn btn-primary all-modules" href="/courses">View all 12 modules →</Link>
+        </div>
+      </section>
+
+      <section id="teams" className="manager-section noise-panel">
+        <div className="container manager-grid"><div><span className="tag">FOR SALES LEADERS</span><h2 className="display">You can&apos;t coach<br/>what you can&apos;t see.</h2></div><div><p>See who is training, where confidence is breaking down, and whether practice is turning into consistent call activity.</p><div className="score-block"><span>TEAM READINESS</span><strong>78</strong><div><i style={{width:"78%"}} /></div></div><Link className="btn btn-lime" href="/manager">Open manager view ↗</Link></div></div>
+      </section>
+    </main>
+    <footer className="site-footer"><div className="container"><b>MERCHANT SALES ACADEMY</b><span>MAKE THE CALL.</span><span>© 2026</span></div></footer>
+    <style>{`
+      .hero-noise{position:relative;overflow:hidden;background:var(--ink);color:#f5f5ed;min-height:720px}.hero-noise:before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.15) .7px,transparent .7px);background-size:5px 5px;opacity:.18;pointer-events:none}.hero-code{position:absolute;right:22px;top:25px;color:#70766d;font:10px/1.5 monospace;letter-spacing:.13em;text-align:right}.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;align-items:center;min-height:720px;gap:15px;position:relative}.hero-copy{padding:68px 0}.hero-status{font-size:10px;letter-spacing:.18em;font-weight:900;color:#b9c0b5;display:flex;align-items:center;gap:10px}.hero-status span{width:8px;height:8px;background:var(--orange);border-radius:50%;box-shadow:0 0 0 6px rgba(255,92,53,.17)}.hero-title{font-size:clamp(78px,8.6vw,136px);margin:27px 0 30px}.hero-title em{font-style:normal;color:var(--lime);-webkit-text-stroke:1px var(--lime)}.hero-lead{font-size:18px;line-height:1.55;color:#bdc4ba;max-width:610px}.hero-actions{display:flex;align-items:center;gap:28px;margin-top:34px}.text-link{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid #71776e;padding-bottom:4px}.hero-proof{display:grid;grid-template-columns:auto 1fr auto 1fr auto 1fr;gap:10px 15px;border-top:1px solid #424640;margin-top:52px;padding-top:20px}.hero-proof b{color:var(--orange);font:900 18px monospace}.hero-proof span{font-size:9px;letter-spacing:.1em;line-height:1.5;color:#969d93;font-weight:800}.manifesto{padding:120px 0;background:var(--paper)}.manifesto-grid{display:grid;grid-template-columns:.35fr 1fr;gap:60px}.index-stamp{font:900 11px monospace;letter-spacing:.1em}.section-title{font-size:clamp(62px,7vw,108px);margin:0 0 35px}.statement{font:700 clamp(24px,3vw,42px)/1.18 Arial,sans-serif;max-width:920px;margin:0 0 28px}.statement mark{background:var(--lime);color:var(--ink);padding:0 5px}.body-copy{max-width:720px;color:var(--muted);line-height:1.7;font-size:17px}.call-lab{background:var(--orange);padding:95px 0;border-block:3px solid var(--ink)}.section-kicker{display:flex;justify-content:space-between;font:900 11px monospace;letter-spacing:.12em;border-bottom:2px solid var(--ink);padding-bottom:13px}.lab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:35px;border:2px solid var(--ink)}.lab-card{min-height:430px;padding:28px;display:flex;flex-direction:column;border-right:2px solid var(--ink)}.lab-card:last-child{border:0}.lab-2{background:var(--paper)}.lab-3{background:var(--ink);color:white}.lab-top{display:flex;justify-content:space-between;font:900 16px monospace}.lab-card h3{font:900 68px/.9 Impact,'Arial Narrow',sans-serif;margin:85px 0 20px}.lab-card p{line-height:1.6;max-width:330px}.lab-card small{margin-top:auto;font-weight:900;font-size:10px;letter-spacing:.1em}.curriculum-section{padding:110px 0}.curriculum-head{display:grid;grid-template-columns:1.3fr .7fr;gap:50px;align-items:end}.curriculum-head p{font-size:19px;line-height:1.55;color:var(--muted);padding-bottom:12px}.module-list{border-top:3px solid var(--ink);margin-top:45px}.module-row{display:grid;grid-template-columns:70px 1fr 1.35fr 110px 24px;gap:20px;align-items:center;padding:22px 8px;border-bottom:1px solid var(--ink);transition:.15s}.module-row:hover{background:var(--lime);padding-inline:16px}.module-num{font:900 15px monospace;color:var(--orange)}.module-row h3{font-size:19px;margin:0}.module-row p{font-size:12px;color:var(--muted);line-height:1.45;margin:0}.module-row b{font:900 9px monospace;letter-spacing:.08em}.module-row i{font-style:normal;font-size:18px}.all-modules{margin-top:35px}.manager-section{color:white;padding:105px 0}.manager-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:80px;align-items:center}.manager-grid h2{font-size:clamp(66px,7vw,110px);margin:25px 0 0}.tag{display:inline-block;background:var(--orange);color:var(--ink);padding:8px 11px;font:900 10px monospace;letter-spacing:.1em}.manager-grid p{font-size:19px;line-height:1.6;color:#c6cec2}.score-block{border:1px solid #667064;padding:20px;margin:28px 0}.score-block span{font:900 10px monospace;letter-spacing:.12em}.score-block strong{float:right;font:900 38px Impact}.score-block div{height:8px;background:#333833;clear:both;margin-top:20px}.score-block i{display:block;height:100%;background:var(--lime)}.site-footer{background:var(--lime);border-top:2px solid var(--ink);padding:25px 0}.site-footer .container{display:flex;justify-content:space-between;font:900 11px monospace;letter-spacing:.1em}
+      @media(max-width:800px){.hero-grid,.manifesto-grid,.curriculum-head,.manager-grid{grid-template-columns:1fr}.hero-title{font-size:72px}.hero-visual{position:absolute;opacity:.16;right:-35%;width:90%;pointer-events:none}.hero-copy{position:relative;z-index:2}.hero-proof{grid-template-columns:auto 1fr}.lab-grid{grid-template-columns:1fr}.lab-card{min-height:330px;border-right:0;border-bottom:2px solid var(--ink)}.lab-card h3{margin-top:55px}.module-row{grid-template-columns:50px 1fr 20px}.module-row p,.module-row b{display:none}.manifesto,.curriculum-section,.manager-section{padding:75px 0}}
+    `}</style>
   </>;
 }
