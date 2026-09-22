@@ -1,13 +1,47 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+// Ranked by how natural they tend to sound. Network voices (Google, Microsoft
+// Online/Natural) use neural synthesis and sound far less robotic than the
+// default local SAPI voices (Microsoft David/Zira/Mark) most browsers pick first.
+const PREFERRED_VOICE_NAMES = [
+  "Google US English",
+  "Microsoft Aria Online (Natural) - English (United States)",
+  "Microsoft Jenny Online (Natural) - English (United States)",
+  "Microsoft Guy Online (Natural) - English (United States)",
+  "Google UK English Female",
+];
+
+function pickBestVoice(voices: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
+  for (const name of PREFERRED_VOICE_NAMES) {
+    const match = voices.find((v) => v.name === name);
+    if (match) return match;
+  }
+  // Next best: any non-local (network/neural) English voice.
+  const anyNetworkEnglish = voices.find((v) => !v.localService && v.lang.startsWith("en"));
+  if (anyNetworkEnglish) return anyNetworkEnglish;
+  // Fall back to whatever English voice the browser offers.
+  return voices.find((v) => v.lang.startsWith("en")) ?? voices[0] ?? null;
+}
 
 export function ReadAloud({ targetId }: { targetId: string }) {
   const [state, setState] = useState<"idle" | "speaking" | "paused">("idle");
   const [supported, setSupported] = useState(true);
+  const voiceRef = useRef<SpeechSynthesisVoice | null>(null);
 
   useEffect(() => {
-    setSupported(typeof window !== "undefined" && "speechSynthesis" in window);
-    return () => { if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel(); };
+    const ok = typeof window !== "undefined" && "speechSynthesis" in window;
+    setSupported(ok);
+    if (!ok) return;
+
+    function loadVoice() {
+      const voices = window.speechSynthesis.getVoices();
+      if (voices.length) voiceRef.current = pickBestVoice(voices);
+    }
+    loadVoice();
+    window.speechSynthesis.onvoiceschanged = loadVoice;
+
+    return () => { window.speechSynthesis.cancel(); };
   }, []);
 
   function start() {
@@ -16,7 +50,9 @@ export function ReadAloud({ targetId }: { targetId: string }) {
     if (!text) return;
     window.speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
-    utter.rate = 0.98;
+    if (voiceRef.current) utter.voice = voiceRef.current;
+    utter.rate = 1.02;
+    utter.pitch = 1;
     utter.onend = () => setState("idle");
     utter.onerror = () => setState("idle");
     window.speechSynthesis.speak(utter);
