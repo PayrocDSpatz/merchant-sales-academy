@@ -18,7 +18,7 @@ export function SignalArt() {
           <rect x="120" y="32" width="500" height="590" fill="url(#dither-dots)" />
           <path d="M140 200h500v64H140zm0 116h500v22H140zm0 79h500v42H140zm0 117h500v16H140z" fill="currentColor" opacity=".18" />
         </g>
-        <path className="headset" d="M259 230c-19-143 267-174 267 8m-267-8v92c0 17 12 30 28 30h23v-126h-23c-16 0-28 14-28 30m267-18v84c0 17-13 30-29 30h-22V226h22c16 0 29 13 29 30m-2 78c0 63-32 98-94 102m0 0h-34" fill="none" stroke="currentColor" strokeWidth="13" strokeLinecap="round" />
+        <path className="headset" d="M253 180c0-180 284-180 284 0m-284 0v56c0 10 10 18 24 18h23v-70h-23c-14 0-24 8-24 18m284-22v56c0 10-10 18-24 18h-23V184h23c14 0 24 8 24 18m-17 52c0 40-20 62-59 65m0 0h-22" fill="none" stroke="currentColor" strokeWidth="13" strokeLinecap="round" />
         <rect x="70" y="88" width="146" height="48" rx="24" className="signal-pill" />
         <text x="143" y="118" textAnchor="middle" className="signal-text">LIVE CALL</text>
         <g className="wave">
