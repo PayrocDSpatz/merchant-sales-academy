@@ -40,19 +40,6 @@ button, input, textarea { font: inherit; }
 .progress > span { display: block; height: 100%; border-radius: inherit; background: var(--green); }
 .dot-grid { background-image: radial-gradient(rgba(10,11,10,.3) 1.4px, transparent 1.4px); background-size: 10px 10px; }
 
-.signal-art { position: relative; color: var(--lime); width: min(620px,100%); margin: auto; }
-.signal-art svg { display:block; width:100%; filter: drop-shadow(14px 14px 0 rgba(0,0,0,.22)); }
-.signal-art .portrait-fill { color: var(--lime); }
-.signal-art .headset { color: #f5f5ed; }
-.signal-art .signal-pill { fill: var(--orange); }
-.signal-art .signal-text,.signal-art .tiny-label,.signal-art .objection-text { fill: var(--ink); font-family: Arial,sans-serif; font-weight:900; }
-.signal-art .signal-text { font-size:15px; letter-spacing:3px; }
-.signal-art .tiny-label { font-size:11px; letter-spacing:2px; }
-.signal-art .objection-text { font-size:21px; }
-.signal-art .objection-card { fill:#f6f6ef; stroke:var(--ink); stroke-width:4px; }
-.signal-art .wave { color:var(--orange); }
-.crosshair { position:absolute; font:900 38px/1 monospace; color:var(--orange); }
-.crosshair-a { top:15%; right:2%; }.crosshair-b { bottom:10%; left:2%; color:var(--lime); }
 .mini-wave { height:84px; display:flex; align-items:center; gap:5px; }
 .mini-wave i { display:block; width:5px; min-height:7px; background:var(--lime); }
 .ticker { overflow:hidden; border-block:2px solid var(--ink); background:var(--lime); white-space:nowrap; }

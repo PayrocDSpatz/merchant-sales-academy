@@ -1,6 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PublicNav } from "@/components/PublicNav";
-import { SignalArt, MiniWaveform } from "@/components/SignalArt";
+import { MiniWaveform } from "@/components/SignalArt";
 import { modules } from "@/data/curriculum";
 
 const ticker = "CALL RELUCTANCE  /  OPENING LINES  /  REAL OBJECTIONS  /  QUALIFIED APPOINTMENTS  /  DAILY CONSISTENCY  /  ";
@@ -19,7 +20,7 @@ export default function Home() {
             <div className="hero-actions"><Link className="btn btn-lime" href="/register">Enter the call lab <b>↗</b></Link><Link className="text-link" href="#curriculum">See the system ↓</Link></div>
             <div className="hero-proof"><b>01</b><span>LESSONS THAT<br/>CHANGE BEHAVIOR</span><b>02</b><span>DRILLS THAT FEEL<br/>LIKE REAL CALLS</span><b>03</b><span>NUMBERS THAT<br/>DON&apos;T LIE</span></div>
           </div>
-          <div className="hero-visual"><SignalArt /></div>
+          <div className="hero-visual"><Image src="/hero-call.png" alt="Sales rep mid cold-call, wearing a headset" width={1254} height={1254} priority style={{ width: "100%", maxWidth: 620, height: "auto", margin: "auto", display: "block" }} /></div>
         </div>
       </section>
 
