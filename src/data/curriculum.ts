@@ -3,18 +3,18 @@ export type Module = { id: number; slug: string; title: string; description: str
 
 export const modules: Module[] = [
   { id: 1, slug: "understanding-call-reluctance", title: "Understanding Call Reluctance", description: "Recognize what is holding you back and learn how to separate personal rejection from a business outcome.", status: "active", lessons: [
-    { id: "why-we-hesitate", title: "Why We Hesitate", minutes: 6, type: "lesson", completed: true },
-    { id: "fear-of-rejection", title: "Fear of Rejection", minutes: 8, type: "lesson" },
-    { id: "sounding-inexperienced", title: "Fear of Sounding Inexperienced", minutes: 7, type: "lesson" },
-    { id: "avoidance-loop", title: "The Avoidance Loop", minutes: 6, type: "lesson" },
+    { id: "why-we-hesitate", title: "Why We Hesitate", minutes: 2, type: "lesson", completed: true },
+    { id: "fear-of-rejection", title: "Fear of Rejection", minutes: 2, type: "lesson" },
+    { id: "sounding-inexperienced", title: "Fear of Sounding Inexperienced", minutes: 2, type: "lesson" },
+    { id: "avoidance-loop", title: "The Avoidance Loop", minutes: 2, type: "lesson" },
     { id: "reframe", title: "Reframe the Rejection", minutes: 10, type: "exercise" },
     { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz" },
   ]},
   { id: 2, slug: "preparing-to-make-calls", title: "Preparing to Make Calls", description: "Create a repeatable call block, realistic activity goals, and a pre-call routine that removes hesitation.", status: "available", lessons: [
-    { id: "the-call-block", title: "Building Your Call Block", minutes: 9, type: "lesson" },
-    { id: "setting-your-number", title: "Setting a Real Daily Target", minutes: 6, type: "lesson" },
-    { id: "the-precall-routine", title: "A Pre-Call Routine That Removes Hesitation", minutes: 7, type: "lesson" },
-    { id: "activity-vs-outcome", title: "Track Activity, Not Just Outcomes", minutes: 8, type: "lesson" },
+    { id: "the-call-block", title: "Building Your Call Block", minutes: 3, type: "lesson" },
+    { id: "setting-your-number", title: "Setting a Real Daily Target", minutes: 2, type: "lesson" },
+    { id: "the-precall-routine", title: "A Pre-Call Routine That Removes Hesitation", minutes: 2, type: "lesson" },
+    { id: "activity-vs-outcome", title: "Track Activity, Not Just Outcomes", minutes: 2, type: "lesson" },
   ]},
   { id: 3, slug: "opening-the-conversation", title: "Opening the Conversation", description: "Earn the next 30 seconds without sounding scripted, vague, or apologetic.", status: "locked", lessons: [] },
   { id: 4, slug: "earning-attention", title: "Earning the Merchant's Attention", description: "Lead with relevance across restaurants, retail, service businesses, e-commerce, and integrated payments.", status: "locked", lessons: [] },
