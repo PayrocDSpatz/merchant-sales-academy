@@ -1,4 +1,10 @@
-export type Lesson = { id: string; title: string; minutes: number; type: "lesson" | "exercise" | "quiz"; completed?: boolean };
+export type Lesson = { id: string; title: string; minutes: number; type: "lesson" | "exercise" | "quiz"; completed?: boolean; href?: string };
+
+// Where a module item lives. Exercises and quizzes have their own routes
+// (set via href); regular lessons live under the module's lesson route.
+export function lessonHref(moduleSlug: string, lesson: Lesson) {
+  return lesson.href ?? `/courses/${moduleSlug}/lessons/${lesson.id}`;
+}
 export type Module = { id: number; slug: string; title: string; description: string; lessons: Lesson[]; status: "active" | "locked" | "available" };
 
 export const modules: Module[] = [
@@ -7,14 +13,16 @@ export const modules: Module[] = [
     { id: "fear-of-rejection", title: "Fear of Rejection", minutes: 2, type: "lesson" },
     { id: "sounding-inexperienced", title: "Fear of Sounding Inexperienced", minutes: 2, type: "lesson" },
     { id: "avoidance-loop", title: "The Avoidance Loop", minutes: 2, type: "lesson" },
-    { id: "reframe", title: "Reframe the Rejection", minutes: 10, type: "exercise" },
-    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz" },
+    { id: "reframe", title: "Reframe the Rejection", minutes: 10, type: "exercise", href: "/practice" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz" },
   ]},
   { id: 2, slug: "preparing-to-make-calls", title: "Preparing to Make Calls", description: "Create a repeatable call block, realistic activity goals, and a pre-call routine that removes hesitation.", status: "available", lessons: [
     { id: "the-call-block", title: "Building Your Call Block", minutes: 3, type: "lesson" },
     { id: "setting-your-number", title: "Setting a Real Daily Target", minutes: 2, type: "lesson" },
     { id: "the-precall-routine", title: "A Pre-Call Routine That Removes Hesitation", minutes: 2, type: "lesson" },
     { id: "activity-vs-outcome", title: "Track Activity, Not Just Outcomes", minutes: 2, type: "lesson" },
+    { id: "call-plan", title: "Build Your Call Plan", minutes: 10, type: "exercise", href: "/practice/call-plan" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/preparing-to-make-calls" },
   ]},
   { id: 3, slug: "opening-the-conversation", title: "Opening the Conversation", description: "Earn the next 30 seconds without sounding scripted, vague, or apologetic.", status: "locked", lessons: [] },
   { id: 4, slug: "earning-attention", title: "Earning the Merchant's Attention", description: "Lead with relevance across restaurants, retail, service businesses, e-commerce, and integrated payments.", status: "locked", lessons: [] },

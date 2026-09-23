@@ -221,3 +221,119 @@ export async function downloadQuizResultsPdf(input: QuizResultsPdfInput) {
   const stamp = input.date.toISOString().slice(0, 10);
   doc.save(`Knowledge Check Results - ${clean(input.moduleTitle)} - ${stamp}.pdf`);
 }
+
+export type CallPlanPdfInput = {
+  leadCount: string;
+  dailyTarget: string;
+  targetReason: string;
+  blocks: { label: string; start: string; end: string; plan: string }[];
+  routine: string;
+  logging: string;
+  coachVerdictLabel: string;
+  coachVerdict: "strong" | "close" | "needs_work";
+  oneChange: string;
+  date: Date;
+};
+
+// One-page call plan the rep can keep next to the phone.
+export async function downloadCallPlanPdf(input: CallPlanPdfInput) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "letter", orientation: "portrait" });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const contentW = pageW - MARGIN * 2;
+  const dateText = input.date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+
+  drawHeader(doc, "MY CALL PLAN", "Tomorrow's call plan", dateText);
+
+  let y = 150;
+  const ensureRoom = (needed: number) => {
+    if (y + needed > pageH - FOOTER_SPACE) {
+      doc.addPage();
+      y = MARGIN;
+    }
+  };
+  const label = (text: string) => {
+    doc.setDrawColor(...LINE).setLineWidth(0.75).line(MARGIN, y, pageW - MARGIN, y);
+    y += 22;
+    doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...MUTED);
+    doc.text(text, MARGIN, y, { charSpace: 1.2 });
+    y += 18;
+  };
+  const paragraph = (text: string, size = 11.5) => {
+    doc.setFont("helvetica", "normal").setFontSize(size).setTextColor(...INK);
+    const lines = doc.splitTextToSize(clean(text), contentW) as string[];
+    ensureRoom(lines.length * (size + 4));
+    doc.text(lines, MARGIN, y, { lineHeightFactor: 1.35 });
+    y += lines.length * (size + 4) + 10;
+  };
+
+  // Target
+  label("DAILY DIAL TARGET");
+  doc.setFont("times", "normal").setFontSize(34).setTextColor(...INK);
+  doc.text(`${clean(input.dailyTarget)} dials`, MARGIN, y + 14);
+  doc.setFont("helvetica", "normal").setFontSize(10).setTextColor(...MUTED);
+  doc.text(`From a list of ${clean(input.leadCount)} leads this week. Set before the first dial. Non-negotiable.`, MARGIN, y + 34);
+  y += 52;
+  if (input.targetReason.trim()) paragraph(input.targetReason, 10.5);
+
+  // Blocks
+  ensureRoom(60);
+  label("CALL BLOCKS");
+  const labelW = 70;
+  const timeW = 110;
+  for (const b of input.blocks) {
+    doc.setFont("helvetica", "normal").setFontSize(10.5);
+    const planLines = doc.splitTextToSize(clean(b.plan), contentW - labelW - timeW) as string[];
+    const rowH = Math.max(1, planLines.length) * 14 + 10;
+    ensureRoom(rowH);
+    doc.setFont("helvetica", "bold").setFontSize(10.5).setTextColor(...GREEN);
+    doc.text(b.label, MARGIN, y);
+    doc.setFont("helvetica", "normal").setTextColor(...INK);
+    doc.text(`${clean(b.start)} - ${clean(b.end)}`, MARGIN + labelW, y);
+    doc.text(planLines, MARGIN + labelW + timeW, y, { lineHeightFactor: 1.3 });
+    y += rowH;
+  }
+  y += 4;
+
+  // Routine, as numbered steps when the rep wrote one step per line
+  ensureRoom(60);
+  label("PRE-CALL ROUTINE (SAME EVERY TIME)");
+  const steps = input.routine.split(/\n+/).map((l) => l.replace(/^\s*(\d+[.)]|[-*])\s*/, "").trim()).filter(Boolean);
+  if (steps.length > 1) {
+    doc.setFont("helvetica", "normal").setFontSize(11);
+    steps.forEach((step, i) => {
+      const lines = doc.splitTextToSize(clean(step), contentW - 22) as string[];
+      ensureRoom(lines.length * 15 + 4);
+      doc.setFont("helvetica", "bold").setTextColor(...GREEN).text(`${i + 1}.`, MARGIN, y);
+      doc.setFont("helvetica", "normal").setTextColor(...INK).text(lines, MARGIN + 22, y, { lineHeightFactor: 1.3 });
+      y += lines.length * 15 + 4;
+    });
+    y += 8;
+  } else {
+    paragraph(input.routine, 11);
+  }
+
+  // Logging
+  ensureRoom(60);
+  label("WHAT I LOG, AND WHEN");
+  paragraph(input.logging, 11);
+
+  // Coach's one change
+  doc.setFont("helvetica", "normal").setFontSize(11.5);
+  const changeLines = doc.splitTextToSize(clean(input.oneChange), contentW - 44) as string[];
+  const boxH = 52 + changeLines.length * 16;
+  ensureRoom(boxH + 10);
+  y += 4;
+  doc.setFillColor(...TINT).rect(MARGIN, y, contentW, boxH, "F");
+  doc.setFillColor(...LIME).rect(MARGIN, y, 5, boxH, "F");
+  doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...GREEN);
+  doc.text("COACH: ONE CHANGE BEFORE TOMORROW", MARGIN + 24, y + 24, { charSpace: 1.2 });
+  drawPill(doc, input.coachVerdictLabel, input.coachVerdict, pageW - MARGIN - 16 - doc.getTextWidth(input.coachVerdictLabel) - 18, y + 24);
+  doc.setFont("helvetica", "normal").setFontSize(11.5).setTextColor(...INK);
+  doc.text(changeLines, MARGIN + 24, y + 44, { lineHeightFactor: 1.35 });
+
+  drawFooters(doc, input.date);
+  const stamp = input.date.toISOString().slice(0, 10);
+  doc.save(`Call Plan - ${stamp}.pdf`);
+}
