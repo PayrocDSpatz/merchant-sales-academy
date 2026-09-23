@@ -9,7 +9,7 @@
   --paper: #f6f6ef;
   --green: #167e3b;
   --green-dark: #06391c;
-  --lime: #baff29;
+  --lime: #c3dd63;
   --orange: #ff5c35;
   --line: #c9cbc1;
 }
@@ -45,7 +45,7 @@ button, input, textarea { font: inherit; }
 .ticker { overflow:hidden; border-block:2px solid var(--ink); background:var(--lime); white-space:nowrap; }
 .ticker-track { display:inline-block; padding:13px 0; font-weight:900; font-size:13px; letter-spacing:.08em; animation:ticker 22s linear infinite; }
 @keyframes ticker { to { transform:translateX(-50%); } }
-.noise-panel { background-color:var(--ink); background-image:radial-gradient(rgba(186,255,41,.25) 1px,transparent 1px); background-size:7px 7px; }
+.noise-panel { background-color:var(--ink); background-image:radial-gradient(rgba(195,221,99,.25) 1px,transparent 1px); background-size:7px 7px; }
 
 @media (max-width: 760px) {
   .container { width: min(100% - 28px, 1180px); }
