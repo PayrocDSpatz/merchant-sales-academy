@@ -70,7 +70,10 @@ function unescapeLiterals<T>(value: T): T {
 }
 
 export async function POST(req: NextRequest) {
-  if (!process.env.ANTHROPIC_API_KEY) {
+  // Trimmed because a key pasted into the Vercel dashboard can pick up
+  // stray whitespace, which the API rejects as an invalid key.
+  const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
+  if (!apiKey) {
     return NextResponse.json({ error: "AI feedback is not configured." }, { status: 500 });
   }
 
@@ -82,7 +85,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: `Keep each answer under ${MAX_INPUT_CHARS} characters.` }, { status: 400 });
   }
 
-  const client = new Anthropic();
+  const client = new Anthropic({ apiKey });
   try {
     const response = await client.beta.messages.parse({
       model: "claude-opus-5",
@@ -109,7 +112,9 @@ export async function POST(req: NextRequest) {
     }
     if (err instanceof Anthropic.APIError) {
       console.error("reframe-feedback API error", err.status, err.message);
-      return NextResponse.json({ error: "AI feedback failed. Try again." }, { status: 502 });
+      // Upstream status only (no message body) so a misconfigured key is
+      // diagnosable from the browser without exposing anything sensitive.
+      return NextResponse.json({ error: "AI feedback failed. Try again.", upstreamStatus: err.status ?? null }, { status: 502 });
     }
     throw err;
   }
