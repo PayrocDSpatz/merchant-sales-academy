@@ -1,4 +1,4 @@
-// Module 1 knowledge check. Scenario-based on purpose: each question has
+// Module knowledge checks. Scenario-based on purpose: each question has
 // distractors that sound reasonable, and some name a real concept from a
 // different lesson, so the rep has to apply the idea rather than recognize
 // a phrase from the lesson text.
