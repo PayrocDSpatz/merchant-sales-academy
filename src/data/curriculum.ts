@@ -5,6 +5,34 @@ export type Lesson = { id: string; title: string; minutes: number; type: "lesson
 export function lessonHref(moduleSlug: string, lesson: Lesson) {
   return lesson.href ?? `/courses/${moduleSlug}/lessons/${lesson.id}`;
 }
+
+export type NavLink = { href: string; label: string; title: string };
+
+// Previous/next for any item in a module (lesson, exercise or quiz), so every
+// page in a module navigates the same way. The last item points to the next
+// module's first item, or back to the catalog if that module isn't written yet.
+export function moduleNeighbors(moduleSlug: string, itemId: string) {
+  const mIdx = modules.findIndex((m) => m.slug === moduleSlug);
+  const module = modules[mIdx];
+  const index = module.lessons.findIndex((l) => l.id === itemId);
+  const kind = (l: Lesson) => (l.type === "exercise" ? "Practice" : l.type === "quiz" ? "Knowledge check" : "Lesson");
+  const link = (l: Lesson): NavLink => ({ href: lessonHref(moduleSlug, l), label: kind(l), title: l.title });
+
+  const prevItem = module.lessons[index - 1];
+  const prev: NavLink = prevItem ? link(prevItem) : { href: `/courses/${moduleSlug}`, label: "Module overview", title: module.title };
+
+  let next: NavLink;
+  const nextItem = module.lessons[index + 1];
+  if (nextItem) {
+    next = link(nextItem);
+  } else {
+    const nextModule = modules[mIdx + 1];
+    next = nextModule && nextModule.lessons.length
+      ? { href: lessonHref(nextModule.slug, nextModule.lessons[0]), label: `Module ${nextModule.id}`, title: nextModule.title }
+      : { href: "/courses", label: "All modules", title: "Back to the catalog" };
+  }
+  return { module, index, total: module.lessons.length, prev, next };
+}
 export type Module = { id: number; slug: string; title: string; description: string; lessons: Lesson[]; status: "active" | "locked" | "available" };
 
 export const modules: Module[] = [
