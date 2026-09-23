@@ -179,6 +179,6 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleSlug: "preparing-to-make-calls",
     moduleTitle: "Preparing to Make Calls",
     questions: module2Quiz,
-    next: { href: "/courses", label: "Back to all modules" },
+    next: { href: "/courses/opening-the-conversation", label: "Continue to Module 3" },
   },
 };

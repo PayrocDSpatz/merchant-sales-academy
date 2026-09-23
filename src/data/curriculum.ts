@@ -24,7 +24,12 @@ export const modules: Module[] = [
     { id: "call-plan", title: "Build Your Call Plan", minutes: 10, type: "exercise", href: "/practice/call-plan" },
     { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/preparing-to-make-calls" },
   ]},
-  { id: 3, slug: "opening-the-conversation", title: "Opening the Conversation", description: "Earn the next 30 seconds without sounding scripted, vague, or apologetic.", status: "locked", lessons: [] },
+  { id: 3, slug: "opening-the-conversation", title: "Opening the Conversation", description: "Earn the next 30 seconds without sounding scripted, vague, or apologetic.", status: "available", lessons: [
+    { id: "the-first-ten-seconds", title: "The First Ten Seconds", minutes: 3, type: "lesson" },
+    { id: "a-reason-about-them", title: "Give Them a Reason That’s About Them", minutes: 3, type: "lesson" },
+    { id: "drop-the-apology", title: "Drop the Apology and the Script Voice", minutes: 3, type: "lesson" },
+    { id: "ask-for-the-next-30-seconds", title: "Ask for the Next 30 Seconds", minutes: 3, type: "lesson" },
+  ] },
   { id: 4, slug: "earning-attention", title: "Earning the Merchant's Attention", description: "Lead with relevance across restaurants, retail, service businesses, e-commerce, and integrated payments.", status: "locked", lessons: [] },
   { id: 5, slug: "discovery-questions", title: "Discovery That Creates Value", description: "Ask concise questions that reveal business impact instead of interrogating the merchant.", status: "locked", lessons: [] },
   { id: 6, slug: "handling-objections", title: "Handling Common Objections", description: "Stay composed through 'not interested,' 'we're happy,' 'send me information,' and price resistance.", status: "locked", lessons: [] },
