@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { moduleNeighbors } from "@/data/curriculum";
+import { ModuleTimer } from "./Tracking";
 
 // Shared module navigation for every item in a module (lessons, exercises and
-// quizzes): a breadcrumb at the top and previous/next at the bottom.
+// quizzes): a breadcrumb at the top and previous/next at the bottom. The
+// breadcrumb also runs the module's time tracker, since every module page has one.
 
 export function ModuleBreadcrumb({ moduleSlug, itemId }: { moduleSlug: string; itemId: string }) {
   const { module, index, total } = moduleNeighbors(moduleSlug, itemId);
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap", marginBottom: 22 }}>
+      <ModuleTimer moduleSlug={moduleSlug} />
       <Link href={`/courses/${module.slug}`} style={{ fontSize: 13, fontWeight: 800, color: "var(--green)" }}>← {module.title}</Link>
       <span style={{ fontSize: 12, color: "var(--muted)" }}>Module {String(module.id).padStart(2, "0")} · {index + 1} of {total}</span>
     </div>

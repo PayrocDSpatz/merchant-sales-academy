@@ -1,18 +1,18 @@
 import { getApps, initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 
+// Firebase web config. These values are public by design (they ship to every
+// browser); access is controlled by Firestore security rules in firestore.rules.
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyBlVRSQcCZtIat2IqEBMKuKQigR_6rTPs8",
+  authDomain: "merchant-sales-academy.firebaseapp.com",
+  projectId: "merchant-sales-academy",
+  storageBucket: "merchant-sales-academy.firebasestorage.app",
+  messagingSenderId: "556019279914",
+  appId: "1:556019279914:web:75190dceea77d6dc233b53",
 };
 
 export const firebaseApp = getApps()[0] ?? initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
-export const storage = getStorage(firebaseApp);

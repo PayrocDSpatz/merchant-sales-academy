@@ -42,6 +42,13 @@ export function ReadAloud({ targetId }: { targetId: string }) {
     };
   }, []);
 
+  // Lets ModuleTimer count listening as active time even with no mouse or keyboard input.
+  useEffect(() => {
+    if (state === "speaking") document.body.dataset.readAloud = "1";
+    else delete document.body.dataset.readAloud;
+    return () => { delete document.body.dataset.readAloud; };
+  }, [state]);
+
   function getText() {
     return document.getElementById(targetId)?.innerText?.trim() ?? "";
   }

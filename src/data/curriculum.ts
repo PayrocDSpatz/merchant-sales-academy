@@ -1,4 +1,4 @@
-export type Lesson = { id: string; title: string; minutes: number; type: "lesson" | "exercise" | "quiz"; completed?: boolean; href?: string };
+export type Lesson = { id: string; title: string; minutes: number; type: "lesson" | "exercise" | "quiz"; href?: string };
 
 // Where a module item lives. Exercises and quizzes have their own routes
 // (set via href); regular lessons live under the module's lesson route.
@@ -36,8 +36,8 @@ export function moduleNeighbors(moduleSlug: string, itemId: string) {
 export type Module = { id: number; slug: string; title: string; description: string; lessons: Lesson[]; status: "active" | "locked" | "available" };
 
 export const modules: Module[] = [
-  { id: 1, slug: "understanding-call-reluctance", title: "Understanding Call Reluctance", description: "Recognize what is holding you back and learn how to separate personal rejection from a business outcome.", status: "active", lessons: [
-    { id: "why-we-hesitate", title: "Why We Hesitate", minutes: 2, type: "lesson", completed: true },
+  { id: 1, slug: "understanding-call-reluctance", title: "Understanding Call Reluctance", description: "Recognize what is holding you back and learn how to separate personal rejection from a business outcome.", status: "available", lessons: [
+    { id: "why-we-hesitate", title: "Why We Hesitate", minutes: 2, type: "lesson" },
     { id: "fear-of-rejection", title: "Fear of Rejection", minutes: 2, type: "lesson" },
     { id: "sounding-inexperienced", title: "Fear of Sounding Inexperienced", minutes: 2, type: "lesson" },
     { id: "avoidance-loop", title: "The Avoidance Loop", minutes: 2, type: "lesson" },

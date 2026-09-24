@@ -1,0 +1,54 @@
+rules_version = '2';
+
+// Merchant Sales Academy access rules.
+// - Invite-only: a profile (users/{uid}) can only be created for an email that
+//   has an invite, and only with the role that invite grants.
+// - Reps read and write only their own data. Managers can read everyone's
+//   (including journal entries) and manage invites. Nobody can change a role
+//   from the app; change it in the Firebase console if ever needed.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function authEmail() { return request.auth.token.email.lower(); }
+    function isSelf(uid) { return signedIn() && request.auth.uid == uid; }
+    function isManager() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "manager";
+    }
+    function invitePath() { return /databases/$(database)/documents/invites/$(authEmail()); }
+
+    match /invites/{email} {
+      // The invitee can read their own invite so registration can pick up the role.
+      allow get: if isManager() || (signedIn() && authEmail() == email);
+      allow list: if isManager();
+      allow create, update: if isManager()
+        && email == email.lower()
+        && request.resource.data.role in ["rep", "manager"]
+        && request.resource.data.keys().hasOnly(["role", "invitedBy", "invitedByName", "createdAt"]);
+      allow delete: if isManager();
+    }
+
+    match /users/{uid} {
+      allow read: if isSelf(uid) || isManager();
+      allow create: if isSelf(uid)
+        && exists(invitePath())
+        && request.resource.data.role == get(invitePath()).data.role
+        && request.resource.data.email == authEmail()
+        && request.resource.data.firstName is string && request.resource.data.firstName.size() > 0
+        && request.resource.data.lastName is string
+        && request.resource.data.keys().hasOnly(["email", "firstName", "lastName", "role", "createdAt"]);
+      // Reps can fix their name, nothing else.
+      allow update: if isSelf(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["firstName", "lastName"]);
+      allow delete: if false;
+
+      match /{sub}/{docId} {
+        allow read: if isSelf(uid) || isManager();
+        allow write: if isSelf(uid)
+          && sub in ["progress", "moduleTime", "days", "journal", "quizResults"]
+          && exists(/databases/$(database)/documents/users/$(uid));
+      }
+    }
+  }
+}
