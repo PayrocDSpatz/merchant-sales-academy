@@ -3,7 +3,8 @@ import { dayKey, type LearnerData } from "./db";
 
 // Summaries shared by the learner dashboard, My progress, and the manager views.
 
-export const openModules = () => modules.filter((m) => m.lessons.length > 0);
+// Released modules only; a manager-preview module doesn't count toward anyone's progress yet.
+export const openModules = () => modules.filter((m) => m.lessons.length > 0 && m.status !== "preview");
 
 export function moduleCompletion(m: Module, data: LearnerData) {
   const done = new Set(data.progress.filter((p) => p.moduleSlug === m.slug).map((p) => p.itemId));

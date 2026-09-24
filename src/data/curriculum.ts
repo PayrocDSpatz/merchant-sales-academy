@@ -27,13 +27,15 @@ export function moduleNeighbors(moduleSlug: string, itemId: string) {
     next = link(nextItem);
   } else {
     const nextModule = modules[mIdx + 1];
-    next = nextModule && nextModule.lessons.length
+    next = nextModule && nextModule.lessons.length && nextModule.status !== "preview"
       ? { href: lessonHref(nextModule.slug, nextModule.lessons[0]), label: `Module ${nextModule.id}`, title: nextModule.title }
       : { href: "/courses", label: "All modules", title: "Back to the catalog" };
   }
   return { module, index, total: module.lessons.length, prev, next };
 }
-export type Module = { id: number; slug: string; title: string; description: string; lessons: Lesson[]; status: "active" | "locked" | "available" };
+export type Module = { id: number; slug: string; title: string; description: string; lessons: Lesson[]; status: "active" | "locked" | "available" | "preview" };
+// "preview": written but not released. Only managers can open it (see PreviewGate),
+// and it doesn't count toward reps' completion until it's switched to "available".
 
 export const modules: Module[] = [
   { id: 1, slug: "understanding-call-reluctance", title: "Understanding Call Reluctance", description: "Recognize what is holding you back and learn how to separate personal rejection from a business outcome.", status: "available", lessons: [
@@ -60,7 +62,12 @@ export const modules: Module[] = [
     { id: "opener", title: "Write Your Opener", minutes: 10, type: "exercise", href: "/practice/opener" },
     { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/opening-the-conversation" },
   ] },
-  { id: 4, slug: "earning-attention", title: "Earning the Merchant's Attention", description: "Lead with relevance across restaurants, retail, service businesses, e-commerce, and integrated payments.", status: "locked", lessons: [] },
+  { id: 4, slug: "earning-attention", title: "Earning the Merchant's Attention", description: "Lead with relevance across restaurants, retail, service businesses, e-commerce, and integrated payments.", status: "preview", lessons: [
+    { id: "every-vertical-has-its-own-pain", title: "Every Vertical Has Its Own Pain", minutes: 3, type: "lesson" },
+    { id: "speak-in-their-numbers", title: "Speak in Their Numbers", minutes: 3, type: "lesson" },
+    { id: "lead-with-a-business-like-theirs", title: "Lead With a Business Like Theirs", minutes: 3, type: "lesson" },
+    { id: "fit-the-software-they-run", title: "Integrated Payments: Fit the Software They Already Run", minutes: 3, type: "lesson" },
+  ] },
   { id: 5, slug: "discovery-questions", title: "Discovery That Creates Value", description: "Ask concise questions that reveal business impact instead of interrogating the merchant.", status: "locked", lessons: [] },
   { id: 6, slug: "handling-objections", title: "Handling Common Objections", description: "Stay composed through 'not interested,' 'we're happy,' 'send me information,' and price resistance.", status: "locked", lessons: [] },
   { id: 7, slug: "booking-appointments", title: "Booking Qualified Appointments", description: "Move from conversation to a clear, worthwhile next step with the right stakeholders.", status: "locked", lessons: [] },

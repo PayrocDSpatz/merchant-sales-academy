@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { authedPost } from "@/lib/authedFetch";
 
 // Fallback-only: used if the Cloud TTS API request fails for any reason
 // (network issue, quota, misconfiguration). Network voices sound far less
@@ -71,11 +72,8 @@ export function ReadAloud({ targetId }: { targetId: string }) {
     usingFallbackRef.current = false;
 
     try {
-      const res = await fetch("/api/tts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
-      });
+      // Over the daily limit (429) this throws too, and the browser's own voice reads it instead.
+      const res = await authedPost("/api/tts", { text });
       if (!res.ok) throw new Error("tts request failed");
       const { audioContent } = await res.json();
       if (!audioContent) throw new Error("no audio returned");

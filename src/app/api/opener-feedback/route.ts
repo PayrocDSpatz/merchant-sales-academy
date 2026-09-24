@@ -1,6 +1,7 @@
 import { betaJSONSchemaOutputFormat } from "@anthropic-ai/sdk/helpers/beta/json-schema";
 import { NextRequest, NextResponse } from "next/server";
 import { runCoach } from "@/lib/coach";
+import { guardPaidRoute } from "@/lib/apiGuard";
 
 // Coaching feedback for Module 3's "Write Your Opener" exercise: the rep
 // picks a real merchant, turns one observation into a reason, writes a
@@ -106,6 +107,9 @@ export async function POST(req: NextRequest) {
     `<closing_question>\n${question.trim()}\n</closing_question>`,
     `<full_opener_as_they_would_say_it>\n${opener.trim()}\n</full_opener_as_they_would_say_it>`,
   ].join("\n\n");
+
+  const blocked = await guardPaidRoute(req, "coach");
+  if (blocked) return blocked;
 
   return runCoach({ system: SYSTEM, format: betaJSONSchemaOutputFormat(FEEDBACK_SCHEMA), content });
 }

@@ -1,4 +1,4 @@
-"use client"; import Link from "next/link"; import { useState } from "react"; import { AppShell } from "@/components/AppShell"; import { ModuleBreadcrumb, ModulePager } from "@/components/ModuleNav"; import { SavedNote, useSaveExercise } from "@/components/Tracking"; import { downloadOpenerPdf } from "@/lib/pdf";
+"use client"; import Link from "next/link"; import { useState } from "react"; import { AppShell } from "@/components/AppShell"; import { authedPost } from "@/lib/authedFetch"; import { ModuleBreadcrumb, ModulePager } from "@/components/ModuleNav"; import { SavedNote, useSaveExercise } from "@/components/Tracking"; import { downloadOpenerPdf } from "@/lib/pdf";
 // Module 3 exercise: the rep builds an opener for a real merchant in four steps, gets coach feedback from /api/opener-feedback, then keeps the opener as a PDF.
 type StepKey="merchant"|"reason"|"question"|"opener";
 type Area="intro"|"reason"|"question"|"delivery";
@@ -22,7 +22,7 @@ const words=(t:string)=>t.trim()?t.trim().split(/\s+/).length:0;const seconds=(t
 function filled(d:Draft,key:StepKey){switch(key){case "merchant":return !!(d.merchant.trim()&&d.observation.trim());case "reason":return !!d.reason.trim();case "question":return !!d.question.trim();case "opener":return !!d.opener.trim()}}
 export default function OpenerPractice(){const [step,setStep]=useState(0);const [draft,setDraft]=useState<Draft>(EMPTY);const [feedback,setFeedback]=useState<Feedback|null>(null);const [loading,setLoading]=useState(false);const [error,setError]=useState("");const [reviewing,setReviewing]=useState(false);const [done,setDone]=useState(false);
 const update=(patch:Partial<Draft>)=>{setDraft(d=>({...d,...patch}));setFeedback(null);setError("")};
-async function getFeedback(){setLoading(true);setError("");try{const res=await fetch("/api/opener-feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(draft)});const data=await res.json();if(!res.ok)throw new Error(data.error||"AI feedback failed. Try again.");setFeedback(data.feedback);setReviewing(true);window.scrollTo(0,0)}catch(e){setError(e instanceof Error?e.message:"AI feedback failed. Try again.")}finally{setLoading(false)}}
+async function getFeedback(){setLoading(true);setError("");try{const res=await authedPost("/api/opener-feedback",draft);const data=await res.json();if(!res.ok)throw new Error(data.error||"AI feedback failed. Try again.");setFeedback(data.feedback);setReviewing(true);window.scrollTo(0,0)}catch(e){setError(e instanceof Error?e.message:"AI feedback failed. Try again.")}finally{setLoading(false)}}
 const current=STEPS[step];const canAdvance=filled(draft,current.key);
 const onPrimary=()=>{if(step<STEPS.length-1){setStep(step+1);return}if(feedback){setReviewing(true);return}void getFeedback()};
 const editStep=(s:number)=>{setStep(s);setReviewing(false)};

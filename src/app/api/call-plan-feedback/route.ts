@@ -1,6 +1,7 @@
 import { betaJSONSchemaOutputFormat } from "@anthropic-ai/sdk/helpers/beta/json-schema";
 import { NextRequest, NextResponse } from "next/server";
 import { runCoach } from "@/lib/coach";
+import { guardPaidRoute } from "@/lib/apiGuard";
 
 // Coaching feedback for Module 2's "Build Your Call Plan" exercise: the rep
 // writes tomorrow's plan (daily target, call blocks, pre-call routine, what
@@ -117,6 +118,9 @@ export async function POST(req: NextRequest) {
     `<pre_call_routine>\n${routine.trim()}\n</pre_call_routine>`,
     `<what_and_when_they_log>\n${logging.trim()}\n</what_and_when_they_log>`,
   ].join("\n\n");
+
+  const blocked = await guardPaidRoute(req, "coach");
+  if (blocked) return blocked;
 
   return runCoach({ system: SYSTEM, format: betaJSONSchemaOutputFormat(FEEDBACK_SCHEMA), content });
 }

@@ -1,4 +1,4 @@
-"use client"; import Link from "next/link"; import { useState } from "react"; import { AppShell } from "@/components/AppShell"; import { ModuleBreadcrumb, ModulePager } from "@/components/ModuleNav"; import { SavedNote, useSaveExercise } from "@/components/Tracking"; import { downloadCallPlanPdf } from "@/lib/pdf";
+"use client"; import Link from "next/link"; import { useState } from "react"; import { AppShell } from "@/components/AppShell"; import { authedPost } from "@/lib/authedFetch"; import { ModuleBreadcrumb, ModulePager } from "@/components/ModuleNav"; import { SavedNote, useSaveExercise } from "@/components/Tracking"; import { downloadCallPlanPdf } from "@/lib/pdf";
 // Module 2 exercise: the rep writes tomorrow's call plan in four steps, gets coach feedback on each part from /api/call-plan-feedback, then keeps the plan as a one-page PDF.
 type Area="target"|"blocks"|"routine"|"logging";
 type Section={status:"good"|"fix";feedback:string;suggestion:string};
@@ -21,7 +21,7 @@ function filled(p:Plan,area:Area){const b=(x:Block)=>x.start.trim()&&x.end.trim(
 export default function CallPlan(){const [step,setStep]=useState(0);const [plan,setPlan]=useState<Plan>(EMPTY);const [feedback,setFeedback]=useState<Feedback|null>(null);const [loading,setLoading]=useState(false);const [error,setError]=useState("");const [reviewing,setReviewing]=useState(false);const [done,setDone]=useState(false);
 const update=(patch:Partial<Plan>)=>{setPlan(p=>({...p,...patch}));setFeedback(null);setError("")};
 const updateBlock=(key:"amBlock"|"middayBlock"|"pmBlock",patch:Partial<Block>)=>update({[key]:{...plan[key],...patch}} as Partial<Plan>);
-async function getFeedback(){setLoading(true);setError("");try{const res=await fetch("/api/call-plan-feedback",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(plan)});const data=await res.json();if(!res.ok)throw new Error(data.error||"AI feedback failed. Try again.");setFeedback(data.feedback);setReviewing(true);window.scrollTo(0,0)}catch(e){setError(e instanceof Error?e.message:"AI feedback failed. Try again.")}finally{setLoading(false)}}
+async function getFeedback(){setLoading(true);setError("");try{const res=await authedPost("/api/call-plan-feedback",plan);const data=await res.json();if(!res.ok)throw new Error(data.error||"AI feedback failed. Try again.");setFeedback(data.feedback);setReviewing(true);window.scrollTo(0,0)}catch(e){setError(e instanceof Error?e.message:"AI feedback failed. Try again.")}finally{setLoading(false)}}
 const current=STEPS[step];const canAdvance=filled(plan,current.area);
 const onPrimary=()=>{if(step<STEPS.length-1){setStep(step+1);return}if(feedback){setReviewing(true);return}void getFeedback()};
 const editArea=(area:Area)=>{setStep(STEPS.findIndex(s=>s.area===area));setReviewing(false)};

@@ -29,6 +29,28 @@ service cloud.firestore {
       allow delete: if isManager();
     }
 
+    // Daily usage counters for the paid API routes (AI coach, text-to-speech),
+    // bumped by the server acting as the signed-in user (src/lib/apiGuard.ts).
+    // A count can only start at 1 and go up by exactly 1, never down or away,
+    // so reps can't reset their own limits.
+    function isInvitedUser() { return signedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid)); }
+    function startsAtOne() { return request.resource.data.keys().hasOnly(["count"]) && request.resource.data.count == 1; }
+    function goesUpByOne() { return request.resource.data.keys().hasOnly(["count"]) && request.resource.data.count == resource.data.count + 1; }
+
+    match /usage/{uid}/{kind}/{day} {
+      allow read: if isSelf(uid) || isManager();
+      allow create: if isSelf(uid) && isInvitedUser() && kind in ["coach", "tts"] && startsAtOne();
+      allow update: if isSelf(uid) && isInvitedUser() && goesUpByOne();
+      allow delete: if false;
+    }
+
+    match /usageTeam/{kindDay} {
+      allow read: if isManager();
+      allow create: if isInvitedUser() && startsAtOne();
+      allow update: if isInvitedUser() && goesUpByOne();
+      allow delete: if false;
+    }
+
     match /users/{uid} {
       allow read: if isSelf(uid) || isManager();
       allow create: if isSelf(uid)

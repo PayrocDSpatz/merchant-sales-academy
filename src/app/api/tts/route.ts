@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { guardPaidRoute } from "@/lib/apiGuard";
 
 // Google's newest, most natural-sounding voice line. Falls back to a widely
 // available Neural2 voice if Chirp3-HD isn't enabled for this project/key.
@@ -28,6 +29,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing text." }, { status: 400 });
   }
   // Google's synthesize endpoint caps input at 5000 bytes.
+  const blocked = await guardPaidRoute(req, "tts");
+  if (blocked) return blocked;
+
   const trimmed = text.slice(0, 4800);
 
   let res = await synthesize(trimmed, PRIMARY_VOICE, apiKey);

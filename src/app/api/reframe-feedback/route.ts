@@ -1,6 +1,7 @@
 import { betaJSONSchemaOutputFormat } from "@anthropic-ai/sdk/helpers/beta/json-schema";
 import { NextRequest, NextResponse } from "next/server";
 import { runCoach } from "@/lib/coach";
+import { guardPaidRoute } from "@/lib/apiGuard";
 
 // Coaching feedback for the "Reframe the Rejection" practice exercise:
 // the rep writes the thought that shows up before they avoid a call, then
@@ -64,6 +65,9 @@ export async function POST(req: NextRequest) {
   if (thought.length > MAX_INPUT_CHARS || rewrite.length > MAX_INPUT_CHARS) {
     return NextResponse.json({ error: `Keep each answer under ${MAX_INPUT_CHARS} characters.` }, { status: 400 });
   }
+
+  const blocked = await guardPaidRoute(req, "coach");
+  if (blocked) return blocked;
 
   return runCoach({
     system: SYSTEM,
