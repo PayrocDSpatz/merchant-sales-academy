@@ -1,6 +1,6 @@
 import type { jsPDF as JsPDF } from "jspdf";
 
-// Builds the downloadable PDFs (reflection summary, knowledge-check results, call plan, opener) as real PDF files (Letter,
+// Builds the downloadable PDFs (reflection summary, knowledge-check results, call plan, opener, pitch card) as real PDF files (Letter,
 // portrait) instead of relying on the browser's print dialog, whose margin,
 // orientation and background-graphics settings made the output inconsistent
 // between machines. The copyright footer is drawn at the same spot on every page.
@@ -412,4 +412,90 @@ export async function downloadOpenerPdf(input: OpenerPdfInput) {
   drawFooters(doc, input.date);
   const stamp = input.date.toISOString().slice(0, 10);
   doc.save(`Opener - ${clean(input.merchant).replace(/[\/:*?"<>|]/g, "")} - ${stamp}.pdf`);
+}
+
+export type PitchCardPdfInput = {
+  vertical: string;
+  merchant: string;
+  callTime: string;
+  pain: string;
+  number: string;
+  exampleLabel: string;
+  example: string;
+  software: string;
+  cheatSheet: string;
+  coachVerdictLabel: string;
+  coachVerdict: "strong" | "close" | "needs_work";
+  oneChange: string;
+  date: Date;
+};
+
+// One merchant's pitch card (Module 4) to keep next to the phone.
+export async function downloadPitchCardPdf(input: PitchCardPdfInput) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "letter", orientation: "portrait" });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const contentW = pageW - MARGIN * 2;
+  const dateText = input.date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+
+  drawHeader(doc, `PITCH CARD  |  ${clean(input.vertical).toUpperCase()}`, clean(input.merchant), dateText);
+
+  let y = 150;
+  const ensureRoom = (needed: number) => {
+    if (y + needed > pageH - FOOTER_SPACE) {
+      doc.addPage();
+      y = MARGIN;
+    }
+  };
+  const section = (label: string, text: string, opts: { quote?: boolean; pill?: boolean } = {}) => {
+    const size = opts.quote ? 14 : 11.5;
+    doc.setFont(opts.quote ? "times" : "helvetica", "normal").setFontSize(size);
+    const lines = doc.splitTextToSize(opts.quote ? `"${clean(text)}"` : clean(text), contentW) as string[];
+    ensureRoom(40 + lines.length * (size + 5));
+    doc.setDrawColor(...LINE).setLineWidth(0.75).line(MARGIN, y, pageW - MARGIN, y);
+    y += 22;
+    doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...MUTED);
+    doc.text(label, MARGIN, y, { charSpace: 1.2 });
+    if (opts.pill) drawPill(doc, input.coachVerdictLabel, input.coachVerdict, MARGIN + doc.getTextWidth(label) + label.length * 1.2 + 10, y);
+    y += 20;
+    doc.setFont(opts.quote ? "times" : "helvetica", "normal").setFontSize(size).setTextColor(...INK);
+    doc.text(lines, MARGIN, y, { lineHeightFactor: 1.35 });
+    y += lines.length * (size + 5) + 12;
+  };
+
+  // Cheat sheet callout
+  doc.setFont("times", "normal").setFontSize(14);
+  const sheetLines = doc.splitTextToSize(clean(input.cheatSheet), contentW - 44) as string[];
+  const sheetH = 46 + sheetLines.length * 18;
+  doc.setFillColor(...TINT).rect(MARGIN, y, contentW, sheetH, "F");
+  doc.setFillColor(...LIME).rect(MARGIN, y, 5, sheetH, "F");
+  doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...GREEN);
+  doc.text("CHEAT SHEET FOR THIS VERTICAL", MARGIN + 24, y + 22, { charSpace: 1.2 });
+  doc.setFont("times", "normal").setFontSize(14).setTextColor(...INK);
+  doc.text(sheetLines, MARGIN + 24, y + 42, { lineHeightFactor: 1.3 });
+  y += sheetH + 18;
+
+  section("BEST TIME TO CALL", input.callTime, { pill: true });
+  section("THEIR PAIN", input.pain);
+  section("THEIR NUMBER", input.number);
+  section(clean(input.exampleLabel), input.example);
+  section("ASK ABOUT THEIR SOFTWARE", input.software, { quote: true });
+
+  // Before-you-call callout
+  doc.setFont("helvetica", "normal").setFontSize(11.5);
+  const changeLines = doc.splitTextToSize(clean(input.oneChange), contentW - 44) as string[];
+  const boxH = 52 + changeLines.length * 16;
+  ensureRoom(boxH + 10);
+  y += 4;
+  doc.setFillColor(...TINT).rect(MARGIN, y, contentW, boxH, "F");
+  doc.setFillColor(...LIME).rect(MARGIN, y, 5, boxH, "F");
+  doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...GREEN);
+  doc.text("BEFORE YOU CALL", MARGIN + 24, y + 24, { charSpace: 1.2 });
+  doc.setFont("helvetica", "normal").setFontSize(11.5).setTextColor(...INK);
+  doc.text(changeLines, MARGIN + 24, y + 44, { lineHeightFactor: 1.35 });
+
+  drawFooters(doc, input.date);
+  const stamp = input.date.toISOString().slice(0, 10);
+  doc.save(`Pitch Card - ${clean(input.merchant).replace(/[\/:*?"<>|]/g, "")} - ${stamp}.pdf`);
 }

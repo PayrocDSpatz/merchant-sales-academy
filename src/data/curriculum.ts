@@ -67,6 +67,8 @@ export const modules: Module[] = [
     { id: "speak-in-their-numbers", title: "Speak in Their Numbers", minutes: 3, type: "lesson" },
     { id: "lead-with-a-business-like-theirs", title: "Lead With a Business Like Theirs", minutes: 3, type: "lesson" },
     { id: "fit-the-software-they-run", title: "Integrated Payments: Fit the Software They Already Run", minutes: 3, type: "lesson" },
+    { id: "pitch-card", title: "Build Your Vertical Pitch Card", minutes: 10, type: "exercise", href: "/practice/pitch-card" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/earning-attention" },
   ] },
   { id: 5, slug: "discovery-questions", title: "Discovery That Creates Value", description: "Ask concise questions that reveal business impact instead of interrogating the merchant.", status: "locked", lessons: [] },
   { id: 6, slug: "handling-objections", title: "Handling Common Objections", description: "Stay composed through 'not interested,' 'we're happy,' 'send me information,' and price resistance.", status: "locked", lessons: [] },

@@ -231,6 +231,79 @@ export const module3Quiz: QuizQuestion[] = [
   },
 ];
 
+export const module4Quiz: QuizQuestion[] = [
+  {
+    prompt:
+      "Jess has a list of 30 restaurants and a free hour at 12:00 p.m. What does the lesson suggest?",
+    choices: [
+      "Call now. Owners are on site at lunch, so you're more likely to reach the decision-maker.",
+      "Use the noon hour for something else and call the restaurants in the mid-afternoon lull, roughly 2 to 4 p.m. Calling mid-rush tells the owner you don't know their business.",
+      "Call now, but keep each call under 30 seconds so you don't hold them up.",
+      "It doesn't matter when you call. A good opener works at any time of day.",
+    ],
+    answer: 1,
+    explanation:
+      "Timing is part of relevance. A restaurant owner at 12:15 is in the middle of the rush, and the call itself signals you don't understand their day. Matching the call block to the vertical is the cheapest relevance you'll ever get.",
+    lesson: { id: "every-vertical-has-its-own-pain", title: "Every Vertical Has Its Own Pain" },
+  },
+  {
+    prompt:
+      "Marco is about to call an HVAC contractor with three service vans. Which opening problem is most likely to be relevant?",
+    choices: [
+      "Splitting checks and tip adjustments at the end of a shift.",
+      "Lower processing rates, since every business wants to save money.",
+      "Getting paid on the job instead of chasing invoices after the techs leave.",
+      "Inventory that doesn't match what actually sold at the register.",
+    ],
+    answer: 2,
+    explanation:
+      "Service businesses in the field usually struggle with getting paid on site, cards on file, and unpaid invoices. Split checks are a restaurant problem, inventory is retail, and lower rates are what every merchant has in common, which is exactly why they don't make anyone lean in.",
+    lesson: { id: "every-vertical-has-its-own-pain", title: "Every Vertical Has Its Own Pain" },
+  },
+  {
+    prompt:
+      "Which line best follows \"Speak in Their Numbers\" on a first call with a café?",
+    choices: [
+      "\"We deliver best-in-class efficiency and significant savings across your entire payment stack.\"",
+      "\"We'll cut your processing costs by 40%, guaranteed.\"",
+      "\"Your average ticket, your monthly volume, your chargeback rate and your tip percentage all improve with us.\"",
+      "\"Most cafés your size run around 1,500 to 2,000 transactions a month. Is that close for you?\"",
+    ],
+    answer: 3,
+    explanation:
+      "One concrete figure, in the unit the owner already tracks, as a range they can confirm. Hansen and Wänke found concrete wording is judged more likely to be true. The first line is abstract, the second promises savings before seeing a statement, and the third stacks four numbers into a pitch deck.",
+    lesson: { id: "speak-in-their-numbers", title: "Speak in Their Numbers" },
+  },
+  {
+    prompt:
+      "Priya is calling a nail salon. Her team hasn't set up any salons yet, but she knows the towel study: the closer the comparison, the stronger the effect. What should she say?",
+    choices: [
+      "\"We just set up a nail salon a few blocks from you.\" It's close enough to true, and it's the strongest comparison.",
+      "\"Salons that take bookings online usually tell us no-shows are what hurts most. Are you taking deposits when people book?\"",
+      "\"We work with thousands of merchants just like you.\"",
+      "Skip examples entirely. Social proof only works when you have a customer to name.",
+    ],
+    answer: 1,
+    explanation:
+      "The example only works because it's true; an invented customer is a lie that one follow-up question exposes. With no close match, describe the situation honestly and go back to a question. \"Thousands of merchants\" is the generic hotel sign from Goldstein, Cialdini and Griskevicius's study, the weakest version of the effect.",
+    lesson: { id: "lead-with-a-business-like-theirs", title: "Lead With a Business Like Theirs" },
+  },
+  {
+    prompt:
+      "A salon owner mentions: \"My front desk types each total into the card machine, and I match the deposits to the booking report every Friday.\" What's the best next move?",
+    choices: [
+      "Repeat it back in her words and ask how long that takes each week.",
+      "Tell her to replace her booking software with yours so everything is in one place.",
+      "Promise that your payments will integrate with her booking system so the problem goes away.",
+      "Move on to rates, since that's where the real savings are.",
+    ],
+    answer: 0,
+    explanation:
+      "Double entry is the clearest sign of an integration problem, and the time it costs is the business case, told in the owner's own words. \"Replace your system\" fights status quo bias (Samuelson and Zeckhauser), and you should never promise an integration you haven't confirmed.",
+    lesson: { id: "fit-the-software-they-run", title: "Integrated Payments: Fit the Software They Already Run" },
+  },
+];
+
 export type ModuleQuiz = {
   moduleNumber: number;
   moduleSlug: string;
@@ -259,6 +332,13 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleSlug: "opening-the-conversation",
     moduleTitle: "Opening the Conversation",
     questions: module3Quiz,
+    next: { href: "/courses", label: "Back to all modules" },
+  },
+  "earning-attention": {
+    moduleNumber: 4,
+    moduleSlug: "earning-attention",
+    moduleTitle: "Earning the Merchant's Attention",
+    questions: module4Quiz,
     next: { href: "/courses", label: "Back to all modules" },
   },
 };
