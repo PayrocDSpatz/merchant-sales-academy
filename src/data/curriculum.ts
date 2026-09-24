@@ -57,6 +57,8 @@ export const modules: Module[] = [
     { id: "a-reason-about-them", title: "Give Them a Reason That’s About Them", minutes: 3, type: "lesson" },
     { id: "drop-the-apology", title: "Drop the Apology and the Script Voice", minutes: 3, type: "lesson" },
     { id: "ask-for-the-next-30-seconds", title: "Ask for the Next 30 Seconds", minutes: 3, type: "lesson" },
+    { id: "opener", title: "Write Your Opener", minutes: 10, type: "exercise", href: "/practice/opener" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/opening-the-conversation" },
   ] },
   { id: 4, slug: "earning-attention", title: "Earning the Merchant's Attention", description: "Lead with relevance across restaurants, retail, service businesses, e-commerce, and integrated payments.", status: "locked", lessons: [] },
   { id: 5, slug: "discovery-questions", title: "Discovery That Creates Value", description: "Ask concise questions that reveal business impact instead of interrogating the merchant.", status: "locked", lessons: [] },

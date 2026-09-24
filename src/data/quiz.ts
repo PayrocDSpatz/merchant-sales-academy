@@ -158,6 +158,79 @@ export const module2Quiz: QuizQuestion[] = [
   },
 ];
 
+export const module3Quiz: QuizQuestion[] = [
+  {
+    prompt:
+      "Jordan's opener: \"Hi, this is Jordan with Apex Payments, how are you doing today? Great. So Apex has been around for fifteen years and we work with over 4,000 merchants across the Southeast...\" Twenty seconds in, the owner says \"Not interested\" and hangs up. What went wrong?",
+    choices: [
+      "He didn't build enough rapport before getting to business. The small talk needed more time.",
+      "Twenty seconds in, the owner still didn't know why Jordan was calling them. Everything before the reason was time spent deciding without it.",
+      "He should have led with the 4,000 merchants. Social proof is the strongest way to open.",
+      "He talked too slowly. Speeding up would have fit the whole pitch in before the owner lost interest.",
+    ],
+    answer: 1,
+    explanation:
+      "The merchant is silently asking: Who is this? Why are they calling me? Is this worth another thirty seconds? \"How are you today?\" signals a sales call, and a long company introduction delays the one thing that could earn a yes: a reason that's about them. Ambady and Rosenthal's thin-slice research shows those first impressions form fast and stick.",
+    lesson: { id: "the-first-ten-seconds", title: "The First Ten Seconds" },
+  },
+  {
+    prompt:
+      "Dana finds that several Google reviews for a taqueria mention \"card reader down again, cash only tonight.\" Which reason for calling follows the lesson best?",
+    choices: [
+      "\"I saw your reviews say your card reader keeps going down, and that's costing you customers.\"",
+      "\"We help restaurants lower their processing costs.\" Langer's study showed even an empty reason gets a yes 93% of the time, so any reason will do.",
+      "\"I'm calling to see if you're happy with your current processor.\"",
+      "\"I noticed a few reviews mention the card reader being down. Owners in that spot are often stuck on older equipment from their processor, and every outage turns into a cash-only night.\"",
+    ],
+    answer: 3,
+    explanation:
+      "The observation becomes a likely problem, said as something common rather than an accusation, so the merchant can confirm or correct it. Langer's copy-machine requests were tiny and low-stakes; a merchant on their fifth processing call this week is paying closer attention, so a generic reason gets filed with the others.",
+    lesson: { id: "a-reason-about-them", title: "Give Them a Reason That’s About Them" },
+  },
+  {
+    prompt:
+      "Priya's opener has a strong reason and a good question, but merchants keep cutting her off. A recording shows she reads it word for word at an even pace, and her voice rises at the end of every sentence: \"It's Priya with BytePOS?\" What's the best fix?",
+    choices: [
+      "Write a longer, more detailed script so she never has to pause or search for words.",
+      "Speed up so she reaches the question before the merchant has a chance to interrupt.",
+      "Know the three parts well enough to say them in her own words, rehearse out loud, and let her voice come down at the end of her name and reason, saving the rise for the one real question.",
+      "Soften the start with \"Sorry to catch you at a busy time\" so the merchant feels respected.",
+    ],
+    answer: 2,
+    explanation:
+      "Script voice is a delivery problem: an even pace and a rise at the end of every sentence tell the merchant you're reading, and the rise turns statements into requests for permission. The structure stays; the wording becomes hers through rehearsal. An apology would frame the call as an imposition.",
+    lesson: { id: "drop-the-apology", title: "Drop the Apology and the Script Voice" },
+  },
+  {
+    prompt:
+      "Marcus is calling a pizzeria owner who just opened a second location. Which closing question fits the lesson best?",
+    choices: [
+      "\"Did you keep the same processor for both locations?\"",
+      "\"Would you be interested in saving money on processing at both locations?\"",
+      "\"Do you have a minute to talk about your payment setup?\"",
+      "\"What are your biggest challenges with payments right now, and what would the ideal setup look like?\"",
+    ],
+    answer: 0,
+    explanation:
+      "A good closing question is specific, about their business, and answerable in about five words. The second is a pitch, the third invites a reflex no, and the fourth takes real thought to answer. Freedman and Fraser's foot-in-the-door research is why the opener aims small: one easy answer makes continuing the conversation the natural next step.",
+    lesson: { id: "ask-for-the-next-30-seconds", title: "Ask for the Next 30 Seconds" },
+  },
+  {
+    prompt:
+      "After Leah's opener, the owner says: \"We're happy with what we have. We've been with the same processor for eight years and they've been fine.\" Leah writes the call down as a failed opener. Is she right?",
+    choices: [
+      "Yes. \"We're happy\" means the opener didn't create enough interest.",
+      "Yes, but only because she should have asked \"Do you have a minute?\" first to get permission.",
+      "No, but only because she can call back in six months when the contract may be up.",
+      "No. The owner is talking about their business, which means the opener did its job. That's the handoff to the rest of the call.",
+    ],
+    answer: 3,
+    explanation:
+      "The opener's only job is to earn the next thirty seconds. It worked if the merchant is talking about their business, even to say they're happy. It only failed if the call ended before they said anything about their business at all. What happens next is the job of the rest of the call.",
+    lesson: { id: "ask-for-the-next-30-seconds", title: "Ask for the Next 30 Seconds" },
+  },
+];
+
 export type ModuleQuiz = {
   moduleNumber: number;
   moduleSlug: string;
@@ -180,5 +253,12 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleTitle: "Preparing to Make Calls",
     questions: module2Quiz,
     next: { href: "/courses/opening-the-conversation", label: "Continue to Module 3" },
+  },
+  "opening-the-conversation": {
+    moduleNumber: 3,
+    moduleSlug: "opening-the-conversation",
+    moduleTitle: "Opening the Conversation",
+    questions: module3Quiz,
+    next: { href: "/courses", label: "Back to all modules" },
   },
 };
