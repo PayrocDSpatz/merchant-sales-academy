@@ -499,6 +499,6 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleSlug: "handling-objections",
     moduleTitle: "Handling Common Objections",
     questions: module6Quiz,
-    next: { href: "/courses", label: "Back to all modules" },
+    next: { href: "/courses/booking-appointments", label: "Continue to Module 7" },
   },
 };
