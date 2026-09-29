@@ -78,7 +78,12 @@ export const modules: Module[] = [
     { id: "discovery-plan", title: "Plan Your Discovery", minutes: 10, type: "exercise", href: "/practice/discovery-plan" },
     { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/discovery-questions" },
   ] },
-  { id: 6, slug: "handling-objections", title: "Handling Common Objections", description: "Stay composed through 'not interested,' 'we're happy,' 'send me information,' and price resistance.", status: "locked", lessons: [] },
+  { id: 6, slug: "handling-objections", title: "Handling Common Objections", description: "Stay composed through 'not interested,' 'we're happy,' 'send me information,' and price resistance.", status: "available", lessons: [
+    { id: "not-interested", title: "When They Say “Not Interested”", minutes: 3, type: "lesson" },
+    { id: "were-happy", title: "“We’re Happy With Who We Have”", minutes: 3, type: "lesson" },
+    { id: "send-me-information", title: "“Just Send Me Some Information”", minutes: 3, type: "lesson" },
+    { id: "price-resistance", title: "“What’s Your Rate?” and Price Pushback", minutes: 3, type: "lesson" },
+  ] },
   { id: 7, slug: "booking-appointments", title: "Booking Qualified Appointments", description: "Move from conversation to a clear, worthwhile next step with the right stakeholders.", status: "locked", lessons: [] },
   { id: 8, slug: "follow-up", title: "Follow-Up Without Chasing", description: "Build a professional follow-up cadence that adds value and keeps opportunities moving.", status: "locked", lessons: [] },
   { id: 9, slug: "activity-mindset", title: "Activity, Mindset & Consistency", description: "Use controllable behaviors and honest scorekeeping to create durable selling habits.", status: "locked", lessons: [] },
