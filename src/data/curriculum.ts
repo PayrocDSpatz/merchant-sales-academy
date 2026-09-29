@@ -99,6 +99,8 @@ export const modules: Module[] = [
     { id: "give-them-a-reason", title: "Give Them a Reason to Hear From You", minutes: 3, type: "lesson" },
     { id: "a-cadence-you-can-keep", title: "Build a Cadence You Can Keep", minutes: 3, type: "lesson" },
     { id: "close-the-file", title: "Know When to Close the File", minutes: 3, type: "lesson" },
+    { id: "follow-up-plan", title: "Plan Your Follow-Up", minutes: 10, type: "exercise", href: "/practice/follow-up-plan" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/follow-up" },
   ] },
   { id: 9, slug: "activity-mindset", title: "Activity, Mindset & Consistency", description: "Use controllable behaviors and honest scorekeeping to create durable selling habits.", status: "locked", lessons: [] },
   { id: 10, slug: "gatekeepers", title: "Working With Gatekeepers", description: "Navigate access professionally and turn gatekeepers into allies.", status: "locked", lessons: [] },

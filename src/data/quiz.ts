@@ -523,6 +523,79 @@ export const module7Quiz: QuizQuestion[] = [
   },
 ];
 
+export const module8Quiz: QuizQuestion[] = [
+  {
+    prompt:
+      "A florist told Kim in October, \"Call me after Valentine's Day. February is our busiest month, and our contract's up in April.\" What's the best follow-up plan?",
+    choices: [
+      "Call every week anyway, so she doesn't forget who Kim is.",
+      "Note her words, the April contract end and the timing she gave, then reach out the week after Valentine's Day with a reason tied to the renewal.",
+      "Mark her as not interested. If she wanted to talk, she'd have booked a meeting.",
+      "Send a monthly newsletter until she calls back.",
+    ],
+    answer: 1,
+    explanation:
+      "\"Not right now\" is usually about timing. She told Kim exactly when to call and why, so following her timeline shows he listened and gives the next call a real reason. Weekly calls are chasing, writing her off hands the opportunity to whoever calls in February, and a generic newsletter gives her nothing.",
+    lesson: { id: "yes-comes-later", title: "Most Yeses Come Later" },
+  },
+  {
+    prompt:
+      "Which of these follow-up emails best follows the lesson?",
+    choices: [
+      "\"Hi Tom, just checking in to see if you've had a chance to think about our conversation.\"",
+      "\"Hi Tom, touching base! Let me know if you have any questions.\"",
+      "\"Hi Tom, when we spoke last month you said the monthly fees seemed to change without explanation. I looked into how that usually happens and wrote up a short summary. Would ten minutes next week be useful to go through one of your statements?\"",
+      "\"Hi Tom, we're offering our lowest rates of the year this month only. Reply today to lock yours in.\"",
+    ],
+    answer: 2,
+    explanation:
+      "It opens with Tom's own words, gives him something useful, and ends with one small ask. \"Just checking in\" and \"touching base\" ask for his attention and give nothing back, and a limited-time rate offer is pressure plus a quoted rate from Module 6.",
+    lesson: { id: "give-them-a-reason", title: "Give Them a Reason to Hear From You" },
+  },
+  {
+    prompt:
+      "In Dennis Regan's 1971 study, participants who were given an unrequested Coke bought about twice as many raffle tickets. What's the lesson for follow-up?",
+    choices: [
+      "Send merchants small gifts so they feel obligated to meet.",
+      "Useful follow-ups make people want to give something back, so every contact should give the merchant something of value before it asks for anything.",
+      "Follow-ups should always include a special offer.",
+      "People only respond to follow-ups that arrive in person.",
+    ],
+    answer: 1,
+    explanation:
+      "A small, unrequested favor made people want to reciprocate. For follow-up, the \"favor\" is value: an answer to a question they asked, something relevant to their business, or a timely reminder. It's not about gifts or obligation, and it only works if what you give is genuinely useful.",
+    lesson: { id: "give-them-a-reason", title: "Give Them a Reason to Hear From You" },
+  },
+  {
+    prompt:
+      "Andre had a good call with a hardware store owner who said, \"Maybe later this year.\" There's no specific date. Which cadence fits the lesson?",
+    choices: [
+      "A follow-up in a few days, then a week or two later, then monthly, mixing a call, an email and a voicemail that points to the email, and logging each contact with a next step and date.",
+      "Call every day at the same time until the owner picks up.",
+      "Wait six months, then call and start the conversation over.",
+      "Send the same email every Monday so it becomes routine.",
+    ],
+    answer: 0,
+    explanation:
+      "With no set date, start closer together and spread out over time, use the channel that suits each message, and write down every contact so nothing depends on memory. Daily calls are chasing, six months of silence means starting from scratch, and the same email every week is noise.",
+    lesson: { id: "a-cadence-you-can-keep", title: "Build a Cadence You Can Keep" },
+  },
+  {
+    prompt:
+      "A salon owner answers Leah's third follow-up with, \"Please stop calling. We're not interested.\" What should Leah do?",
+    choices: [
+      "Try one more time next month with a better offer, since circumstances change.",
+      "Have a teammate call instead, since the request was made to Leah.",
+      "Stop, thank her, mark the salon do-not-call right away so nobody on the team calls, and follow the company's do-not-call policy.",
+      "Send a long email explaining why she's making a mistake.",
+    ],
+    answer: 2,
+    explanation:
+      "A clear request to stop is honored, immediately and for the whole team. There's no clever way around it, and trying one turns a neutral merchant into one who warns other owners about you. Stopping gracefully is part of following up well.",
+    lesson: { id: "close-the-file", title: "Know When to Close the File" },
+  },
+];
+
 export type ModuleQuiz = {
   moduleNumber: number;
   moduleSlug: string;
@@ -580,5 +653,12 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleTitle: "Booking Qualified Appointments",
     questions: module7Quiz,
     next: { href: "/courses/follow-up", label: "Continue to Module 8" },
+  },
+  "follow-up": {
+    moduleNumber: 8,
+    moduleSlug: "follow-up",
+    moduleTitle: "Follow-Up Without Chasing",
+    questions: module8Quiz,
+    next: { href: "/courses", label: "Back to all modules" },
   },
 };
