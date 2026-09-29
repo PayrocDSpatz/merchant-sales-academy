@@ -1,7 +1,7 @@
 import type { JournalEntry } from "@/lib/db";
 import { modules } from "@/data/curriculum";
 
-// One saved exercise (reflection, call plan, opener, pitch card or discovery plan), shown on My progress
+// One saved exercise (reflection, call plan, opener, pitch card, discovery plan or objection playbook), shown on My progress
 // and in the manager's view of a rep.
 
 const s = (v: unknown) => (typeof v === "string" ? v : "");
@@ -56,6 +56,15 @@ export function JournalEntryCard({ entry }: { entry: JournalEntry }) {
         {row("WHO ELSE WEIGHS IN", s(d.decision), true)}
         {row("STATEMENT AND TIMING", s(d.statement))}
         {row("COACH: LISTEN FOR", s(d.listenFor))}
+        {row("COACH: ONE CHANGE", s(d.oneChange))}
+      </>}
+      {entry.type === "objection-playbook" && <>
+        {row("VERTICAL", s(d.vertical))}
+        {row("“NOT INTERESTED”", s(d.notInterested), true)}
+        {row("“WE’RE HAPPY”", s(d.happy), true)}
+        {row("“SEND ME INFORMATION”", s(d.sendInfo), true)}
+        {row("“WHAT’S YOUR RATE?”", s(d.price), true)}
+        {row("COACH: IF THEY SAY NO TWICE", s(d.exitLine), true)}
         {row("COACH: ONE CHANGE", s(d.oneChange))}
       </>}
     </div>

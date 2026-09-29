@@ -377,6 +377,79 @@ export const module5Quiz: QuizQuestion[] = [
   },
 ];
 
+export const module6Quiz: QuizQuestion[] = [
+  {
+    prompt:
+      "Eight seconds into Tasha's call, a pizzeria owner says \"Not interested\" and starts to hang up. What's the best response?",
+    choices: [
+      "\"I totally get it, but I just need two minutes. We're saving pizzerias like yours thousands a year.\"",
+      "\"That's fair, you weren't expecting my call. Before I let you go, when did someone last walk you through your processing statement?\"",
+      "\"No problem, have a great day.\" Early objections are final, so move straight to the next dial.",
+      "\"Can I ask why? Who do you process with, and when does your contract end?\"",
+    ],
+    answer: 1,
+    explanation:
+      "Early \"not interested\" is a reflex, not a verdict. Acknowledge what's true, give a reason, and ask one easy question about their business. Pleading for two minutes with a savings claim is pressure, hanging up gives away a call that hadn't really started, and a stack of questions turns it into an interrogation.",
+    lesson: { id: "not-interested", title: "When They Say “Not Interested”" },
+  },
+  {
+    prompt:
+      "Ben asked his one question, and the owner said \"Really, I'm not interested\" a second time, politely but firmly. What now?",
+    choices: [
+      "Try a different angle, since most sales happen after the fifth objection.",
+      "Ask for a quick meeting anyway. The worst they can say is no.",
+      "Thank them, ask whether it's all right to check back in a few months, and end the call warmly.",
+      "Offer a lower rate on the spot to give them a reason to stay on the line.",
+    ],
+    answer: 2,
+    explanation:
+      "Pushing past two clear no's rarely turns into an appointment and guarantees a cold reception next time. A warm exit with permission to check back keeps the door open. Offering a rate on the phone is the anchoring mistake from Lesson 4.",
+    lesson: { id: "not-interested", title: "When They Say “Not Interested”" },
+  },
+  {
+    prompt:
+      "A boutique owner says, \"We're happy with who we have.\" Which response best follows the lesson?",
+    choices: [
+      "\"Good, that's what you want. No change needed, but if I looked at your last statement, I'd tell you honestly whether you're getting a fair deal. Would that be useful?\"",
+      "\"Most people who say that are overpaying and just don't know it yet.\"",
+      "\"Your processor is known for hidden fees. You might want to check.\"",
+      "\"Okay. Can I send you our pricing sheet so you can compare?\"",
+    ],
+    answer: 0,
+    explanation:
+      "Switching feels like a loss, so \"happy\" is a reasonable answer. Agree, then offer a small check-up instead of a switch, the foot-in-the-door idea from Freedman and Fraser. Criticizing their processor or claiming they're overpaying without evidence makes them defend their choice, and a pricing sheet invites a rate comparison you can't make honestly without a statement.",
+    lesson: { id: "were-happy", title: "“We’re Happy With Who We Have”" },
+  },
+  {
+    prompt:
+      "An auto shop owner says, \"Just send me some information.\" What should Carlos do?",
+    choices: [
+      "Agree, get the email address, and send the full company brochure right after the call.",
+      "Say \"Happy to. So I send something useful, what matters most: what you're paying, how fast you get funded, or how it works with your shop software?\" Then suggest ten minutes later in the week to go over it.",
+      "Push back: \"Information won't help you. What you need is a meeting.\"",
+      "Tell him you'll send it, then call back tomorrow to ask if he read it.",
+    ],
+    answer: 1,
+    explanation:
+      "\"Send me something\" is often a polite exit. Agreeing and then narrowing it tells you which it is: a merchant who's interested will say what matters, and his answer is discovery. Attaching a short, specific next step keeps it moving. A generic brochure gets buried, and pushing back turns a polite request into an argument.",
+    lesson: { id: "send-me-information", title: "“Just Send Me Some Information”" },
+  },
+  {
+    prompt:
+      "A café owner asks, \"So what's your rate?\" Why shouldn't Nina just answer with a number?",
+    choices: [
+      "Because quoting rates on the phone is against card-network rules.",
+      "Because a higher number makes the product seem more premium.",
+      "Because she should always wait for the merchant to name a number first so she can undercut it.",
+      "Because what the café really pays depends on its card mix, how cards are taken and its pricing model, and whatever number she says becomes the anchor the owner judges everything against.",
+    ],
+    answer: 3,
+    explanation:
+      "The honest comparison is the effective rate (total fees divided by total volume) from a real statement. Tversky and Kahneman showed that even a number people know is random pulls their judgment, so a quoted rate sticks. Offer to work out what the owner really pays now, and ask what they pay today.",
+    lesson: { id: "price-resistance", title: "“What’s Your Rate?” and Price Pushback" },
+  },
+];
+
 export type ModuleQuiz = {
   moduleNumber: number;
   moduleSlug: string;
@@ -419,6 +492,13 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleSlug: "discovery-questions",
     moduleTitle: "Discovery That Creates Value",
     questions: module5Quiz,
+    next: { href: "/courses/handling-objections", label: "Continue to Module 6" },
+  },
+  "handling-objections": {
+    moduleNumber: 6,
+    moduleSlug: "handling-objections",
+    moduleTitle: "Handling Common Objections",
+    questions: module6Quiz,
     next: { href: "/courses", label: "Back to all modules" },
   },
 };

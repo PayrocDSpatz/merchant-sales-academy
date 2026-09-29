@@ -83,6 +83,8 @@ export const modules: Module[] = [
     { id: "were-happy", title: "“We’re Happy With Who We Have”", minutes: 3, type: "lesson" },
     { id: "send-me-information", title: "“Just Send Me Some Information”", minutes: 3, type: "lesson" },
     { id: "price-resistance", title: "“What’s Your Rate?” and Price Pushback", minutes: 3, type: "lesson" },
+    { id: "objection-playbook", title: "Build Your Objection Playbook", minutes: 10, type: "exercise", href: "/practice/objection-playbook" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/handling-objections" },
   ] },
   { id: 7, slug: "booking-appointments", title: "Booking Qualified Appointments", description: "Move from conversation to a clear, worthwhile next step with the right stakeholders.", status: "locked", lessons: [] },
   { id: 8, slug: "follow-up", title: "Follow-Up Without Chasing", description: "Build a professional follow-up cadence that adds value and keeps opportunities moving.", status: "locked", lessons: [] },
