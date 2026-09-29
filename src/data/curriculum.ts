@@ -62,7 +62,7 @@ export const modules: Module[] = [
     { id: "opener", title: "Write Your Opener", minutes: 10, type: "exercise", href: "/practice/opener" },
     { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/opening-the-conversation" },
   ] },
-  { id: 4, slug: "earning-attention", title: "Earning the Merchant's Attention", description: "Lead with relevance across restaurants, retail, service businesses, e-commerce, and integrated payments.", status: "preview", lessons: [
+  { id: 4, slug: "earning-attention", title: "Earning the Merchant's Attention", description: "Lead with relevance across restaurants, retail, service businesses, e-commerce, and integrated payments.", status: "available", lessons: [
     { id: "every-vertical-has-its-own-pain", title: "Every Vertical Has Its Own Pain", minutes: 3, type: "lesson" },
     { id: "speak-in-their-numbers", title: "Speak in Their Numbers", minutes: 3, type: "lesson" },
     { id: "lead-with-a-business-like-theirs", title: "Lead With a Business Like Theirs", minutes: 3, type: "lesson" },
@@ -70,7 +70,12 @@ export const modules: Module[] = [
     { id: "pitch-card", title: "Build Your Vertical Pitch Card", minutes: 10, type: "exercise", href: "/practice/pitch-card" },
     { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/earning-attention" },
   ] },
-  { id: 5, slug: "discovery-questions", title: "Discovery That Creates Value", description: "Ask concise questions that reveal business impact instead of interrogating the merchant.", status: "locked", lessons: [] },
+  { id: 5, slug: "discovery-questions", title: "Discovery That Creates Value", description: "Ask concise questions that reveal business impact instead of interrogating the merchant.", status: "available", lessons: [
+    { id: "discovery-not-interrogation", title: "Discovery Is Not an Interrogation", minutes: 3, type: "lesson" },
+    { id: "ask-about-impact", title: "Ask About Impact, Not Just Setup", minutes: 3, type: "lesson" },
+    { id: "follow-the-answer", title: "Follow the Answer", minutes: 3, type: "lesson" },
+    { id: "what-the-appointment-needs", title: "Know What the Appointment Needs", minutes: 3, type: "lesson" },
+  ] },
   { id: 6, slug: "handling-objections", title: "Handling Common Objections", description: "Stay composed through 'not interested,' 'we're happy,' 'send me information,' and price resistance.", status: "locked", lessons: [] },
   { id: 7, slug: "booking-appointments", title: "Booking Qualified Appointments", description: "Move from conversation to a clear, worthwhile next step with the right stakeholders.", status: "locked", lessons: [] },
   { id: 8, slug: "follow-up", title: "Follow-Up Without Chasing", description: "Build a professional follow-up cadence that adds value and keeps opportunities moving.", status: "locked", lessons: [] },
