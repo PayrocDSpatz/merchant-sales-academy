@@ -304,6 +304,79 @@ export const module4Quiz: QuizQuestion[] = [
   },
 ];
 
+export const module5Quiz: QuizQuestion[] = [
+  {
+    prompt:
+      "Dana gets past the opener with a boutique owner and asks: \"Who do you process with, how long have you been with them, and are you happy with them?\" The owner says \"Square, and it's fine.\" What went wrong?",
+    choices: [
+      "Nothing. The owner answered, and \"it's fine\" tells Dana there's no opportunity here.",
+      "She asked too early. Discovery questions belong at the appointment, not on the cold call.",
+      "She stacked three questions, so the owner picked the easiest parts and skipped the rest. One question with a bit of context in front of it would have earned a real answer.",
+      "She should have asked about monthly volume first, since that decides whether the account is worth pursuing.",
+    ],
+    answer: 2,
+    explanation:
+      "A stacked question lets the merchant answer the easy part and skip the rest. Ask one question, put a short reason in front of it so it feels like it's about their business, then stop talking and let the pause work. Leading with volume is exactly the form-filling that makes discovery feel like an audit.",
+    lesson: { id: "discovery-not-interrogation", title: "Discovery Is Not an Interrogation" },
+  },
+  {
+    prompt:
+      "Which of these is an impact question, in the sense the lesson uses?",
+    choices: [
+      "\"When a customer's card gets declined at the counter on a busy Saturday, what does that do to the line and the sale?\"",
+      "\"What POS system are you running at the register?\"",
+      "\"Wouldn't you agree most merchants your size are overpaying on processing?\"",
+      "\"How many terminals do you have across your two locations?\"",
+    ],
+    answer: 0,
+    explanation:
+      "Impact questions ask what a problem costs in time, money or customers. The POS and terminal questions are setup questions, which Rackham's research found less successful sellers lean on (and which you can often answer from their website). The \"wouldn't you agree\" line is a pitch with a question mark on the end.",
+    lesson: { id: "ask-about-impact", title: "Ask About Impact, Not Just Setup" },
+  },
+  {
+    prompt:
+      "A salon owner says: \"Honestly, the last processor was a nightmare. The fees were all over the place.\" What's the best next move?",
+    choices: [
+      "\"Got it. So how many chairs do you have?\" Keep the call moving through your list.",
+      "\"That's exactly why salons switch to us. Our pricing is flat and simple.\"",
+      "\"Totally understand. Can I send you some information about our rates?\"",
+      "\"All over the place how? Different every month, or just higher than you expected?\"",
+    ],
+    answer: 3,
+    explanation:
+      "\"Honestly,\" \"nightmare\" and \"last processor\" are loaded words, and \"all over the place\" needs clarifying. A follow-up built from her own words shows you were listening, which Huang, Brooks and colleagues found is what makes people more likable. Jumping to the next question or straight to a pitch throws away the best material you'll get.",
+    lesson: { id: "follow-the-answer", title: "Follow the Answer" },
+  },
+  {
+    prompt:
+      "Luis is on with a café owner who has said the delivery apps eat too much of her takeout margin. How should he find out who else is involved in a decision?",
+    choices: [
+      "\"Are you the decision-maker for payments here?\"",
+      "\"Besides you, who else would want to weigh in on something like this?\"",
+      "Don't ask. It can offend the owner, so find out at the appointment.",
+      "\"Do you need anyone's permission before you can sign up?\"",
+    ],
+    answer: 1,
+    explanation:
+      "The lesson's phrasing gets the same information without sounding like you're checking whether she matters, and it helps get everyone who matters into the meeting instead of hearing \"I need to run it by my partner\" afterward. Skipping the question is how that happens.",
+    lesson: { id: "what-the-appointment-needs", title: "Know What the Appointment Needs" },
+  },
+  {
+    prompt:
+      "Eight minutes in, a contractor has explained that invoices take three weeks to collect, that he and his wife make these decisions together, and that he can pull last month's statement. Sam still has six discovery questions on his list. What should he do?",
+    choices: [
+      "Work through the remaining six questions so the appointment is fully prepared.",
+      "Give him a savings estimate now, based on what he's shared, to make the meeting feel worthwhile.",
+      "Stop digging, play back the problem in the contractor's words, and book a time with both him and his wife, statement in hand.",
+      "Send a proposal by email instead, since he's clearly interested.",
+    ],
+    answer: 2,
+    explanation:
+      "Sam has what the appointment needs: a problem in the merchant's words, who decides, and a statement. More questions risk talking him out of a meeting he's ready to take, and nobody can honestly estimate savings without seeing the statement. The rest of the discovery belongs in the meeting.",
+    lesson: { id: "what-the-appointment-needs", title: "Know What the Appointment Needs" },
+  },
+];
+
 export type ModuleQuiz = {
   moduleNumber: number;
   moduleSlug: string;
@@ -339,6 +412,13 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleSlug: "earning-attention",
     moduleTitle: "Earning the Merchant's Attention",
     questions: module4Quiz,
+    next: { href: "/courses/discovery-questions", label: "Continue to Module 5" },
+  },
+  "discovery-questions": {
+    moduleNumber: 5,
+    moduleSlug: "discovery-questions",
+    moduleTitle: "Discovery That Creates Value",
+    questions: module5Quiz,
     next: { href: "/courses", label: "Back to all modules" },
   },
 };

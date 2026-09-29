@@ -75,6 +75,8 @@ export const modules: Module[] = [
     { id: "ask-about-impact", title: "Ask About Impact, Not Just Setup", minutes: 3, type: "lesson" },
     { id: "follow-the-answer", title: "Follow the Answer", minutes: 3, type: "lesson" },
     { id: "what-the-appointment-needs", title: "Know What the Appointment Needs", minutes: 3, type: "lesson" },
+    { id: "discovery-plan", title: "Plan Your Discovery", minutes: 10, type: "exercise", href: "/practice/discovery-plan" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/discovery-questions" },
   ] },
   { id: 6, slug: "handling-objections", title: "Handling Common Objections", description: "Stay composed through 'not interested,' 'we're happy,' 'send me information,' and price resistance.", status: "locked", lessons: [] },
   { id: 7, slug: "booking-appointments", title: "Booking Qualified Appointments", description: "Move from conversation to a clear, worthwhile next step with the right stakeholders.", status: "locked", lessons: [] },
