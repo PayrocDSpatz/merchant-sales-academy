@@ -91,6 +91,8 @@ export const modules: Module[] = [
     { id: "qualified-appointment", title: "What Makes an Appointment Qualified", minutes: 3, type: "lesson" },
     { id: "make-it-stick", title: "Make It Stick", minutes: 3, type: "lesson" },
     { id: "the-handoff", title: "Hand It Off Well", minutes: 3, type: "lesson" },
+    { id: "appointment-plan", title: "Book the Appointment", minutes: 10, type: "exercise", href: "/practice/appointment-plan" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/booking-appointments" },
   ] },
   { id: 8, slug: "follow-up", title: "Follow-Up Without Chasing", description: "Build a professional follow-up cadence that adds value and keeps opportunities moving.", status: "locked", lessons: [] },
   { id: 9, slug: "activity-mindset", title: "Activity, Mindset & Consistency", description: "Use controllable behaviors and honest scorekeeping to create durable selling habits.", status: "locked", lessons: [] },

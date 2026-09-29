@@ -1,6 +1,6 @@
 import type { jsPDF as JsPDF } from "jspdf";
 
-// Builds the downloadable PDFs (reflection summary, knowledge-check results, call plan, opener, pitch card, discovery plan, objection playbook) as real PDF files (Letter,
+// Builds the downloadable PDFs (reflection summary, knowledge-check results, call plan, opener, pitch card, discovery plan, objection playbook, booking plan) as real PDF files (Letter,
 // portrait) instead of relying on the browser's print dialog, whose margin,
 // orientation and background-graphics settings made the output inconsistent
 // between machines. The copyright footer is drawn at the same spot on every page.
@@ -648,4 +648,78 @@ export async function downloadObjectionPlaybookPdf(input: ObjectionPlaybookPdfIn
   drawFooters(doc, input.date);
   const stamp = input.date.toISOString().slice(0, 10);
   doc.save(`Objection Playbook - ${clean(input.merchant).replace(/[\/:*?"<>|]/g, "")} - ${stamp}.pdf`);
+}
+
+export type AppointmentPlanPdfInput = {
+  vertical: string;
+  merchant: string;
+  ask: string;
+  qualify: string;
+  confirm: string;
+  handoff: string;
+  invite: string;
+  coachVerdictLabel: string;
+  coachVerdict: "strong" | "close" | "needs_work";
+  oneChange: string;
+  date: Date;
+};
+
+// One merchant's booking plan (Module 7) to keep next to the phone.
+export async function downloadAppointmentPlanPdf(input: AppointmentPlanPdfInput) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "letter", orientation: "portrait" });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const contentW = pageW - MARGIN * 2;
+  const dateText = input.date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+
+  drawHeader(doc, `BOOKING PLAN  |  ${clean(input.vertical).toUpperCase()}`, clean(input.merchant), dateText);
+
+  let y = 150;
+  const ensureRoom = (needed: number) => {
+    if (y + needed > pageH - FOOTER_SPACE) {
+      doc.addPage();
+      y = MARGIN;
+    }
+  };
+  const section = (label: string, text: string, opts: { quote?: boolean; pill?: boolean } = {}) => {
+    const size = opts.quote ? 14 : 11.5;
+    doc.setFont(opts.quote ? "times" : "helvetica", "normal").setFontSize(size);
+    const lines = doc.splitTextToSize(opts.quote ? `"${clean(text)}"` : clean(text), contentW) as string[];
+    ensureRoom(40 + lines.length * (size + 5));
+    doc.setDrawColor(...LINE).setLineWidth(0.75).line(MARGIN, y, pageW - MARGIN, y);
+    y += 22;
+    doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...MUTED);
+    doc.text(label, MARGIN, y, { charSpace: 1.2 });
+    if (opts.pill) drawPill(doc, input.coachVerdictLabel, input.coachVerdict, MARGIN + doc.getTextWidth(label) + label.length * 1.2 + 10, y);
+    y += 20;
+    doc.setFont(opts.quote ? "times" : "helvetica", "normal").setFontSize(size).setTextColor(...INK);
+    doc.text(lines, MARGIN, y, { lineHeightFactor: 1.35 });
+    y += lines.length * (size + 5) + 12;
+  };
+  const callout = (label: string, text: string) => {
+    doc.setFont("helvetica", "normal").setFontSize(11.5);
+    const lines = doc.splitTextToSize(clean(text), contentW - 44) as string[];
+    const boxH = 52 + lines.length * 16;
+    ensureRoom(boxH + 10);
+    doc.setFillColor(...TINT).rect(MARGIN, y, contentW, boxH, "F");
+    doc.setFillColor(...LIME).rect(MARGIN, y, 5, boxH, "F");
+    doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...GREEN);
+    doc.text(label, MARGIN + 24, y + 24, { charSpace: 1.2 });
+    doc.setFont("helvetica", "normal").setFontSize(11.5).setTextColor(...INK);
+    doc.text(lines, MARGIN + 24, y + 44, { lineHeightFactor: 1.35 });
+    y += boxH + 18;
+  };
+
+  section("THE ASK", input.ask, { quote: true, pill: true });
+  section("QUALIFICATION CHECK", input.qualify);
+  section("LOCKING IT IN", input.confirm);
+  section("HANDOFF NOTE", input.handoff);
+  y += 4;
+  callout("CALENDAR INVITE", input.invite);
+  callout("BEFORE YOU CALL", input.oneChange);
+
+  drawFooters(doc, input.date);
+  const stamp = input.date.toISOString().slice(0, 10);
+  doc.save(`Booking Plan - ${clean(input.merchant).replace(/[\/:*?"<>|]/g, "")} - ${stamp}.pdf`);
 }

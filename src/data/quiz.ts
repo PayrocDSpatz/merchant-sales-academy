@@ -450,6 +450,79 @@ export const module6Quiz: QuizQuestion[] = [
   },
 ];
 
+export const module7Quiz: QuizQuestion[] = [
+  {
+    prompt:
+      "A salon owner has just explained that no-shows cost her two or three appointments a week. Which is the strongest way for Jamal to ask for the meeting?",
+    choices: [
+      "\"So, maybe we could find some time to chat at some point, if you're open to it?\"",
+      "\"When would be a good time for you to meet?\"",
+      "\"So no-shows are costing you two or three appointments a week. We can go through how deposits would work for you in twenty minutes. Would Tuesday at 2:30 or Thursday at 10 be better?\"",
+      "\"I'd love to show you our full product line. Do you have an hour sometime next week?\"",
+    ],
+    answer: 2,
+    explanation:
+      "It plays back her problem in her words, says what the meeting is and how long it takes, and offers two specific times. The hint leaves her to do the work, \"when would be good?\" hands her an open-ended decision (Iyengar and Lepper's jam study showed more options make deciding harder), and an hour-long product tour isn't about her problem.",
+    lesson: { id: "ask-for-the-meeting", title: "Ask for the Meeting" },
+  },
+  {
+    prompt:
+      "Priya is one booking short of her weekly target. A retail owner says, \"I'm fine with what we have, but sure, come by if you want. My business partner handles all that anyway.\" What should she do?",
+    choices: [
+      "Book it. A meeting is a meeting, and the target matters.",
+      "Book it as a \"free audit, no strings\" so the owner is more likely to show up.",
+      "Hang up. Without the decision-maker on the call, there's nothing to do.",
+      "Don't call it booked yet. There's no problem in the owner's words and the partner who decides isn't involved. Ask about the partner and what, if anything, they'd want to change.",
+    ],
+    answer: 3,
+    explanation:
+      "A qualified appointment has a real reason and the right people. This one has neither yet, so it would likely end in \"let me think about it\" and cost the person running it an hour. Describing a sales meeting as something softer is dishonest, and hanging up throws away a chance to reach the partner.",
+    lesson: { id: "qualified-appointment", title: "What Makes an Appointment Qualified" },
+  },
+  {
+    prompt:
+      "A contractor wants to meet but mentions he's got eight months left on his processing contract, with an early-termination fee. What's the right call?",
+    choices: [
+      "Book it, and make sure the contract end date and fee are in the handoff note so the meeting can plan around them.",
+      "Don't book it. Anyone under contract is disqualified.",
+      "Book it, but leave the contract out of the notes so the meeting starts on a positive note.",
+      "Tell him you'll cover the termination fee so the contract isn't an issue.",
+    ],
+    answer: 0,
+    explanation:
+      "Timing issues aren't automatically deal-breakers. He may want to know what he's paying and plan for the change. What matters is that everyone knows going in. Hiding it surprises the person running the meeting, and promising to cover a fee you can't commit to is a promise the meeting inherits.",
+    lesson: { id: "qualified-appointment", title: "What Makes an Appointment Qualified" },
+  },
+  {
+    prompt:
+      "Marcus just got a yes for Thursday at 10. What should he do before he hangs up?",
+    choices: [
+      "Thank the owner and hang up quickly, before they change their mind.",
+      "Ask the owner to put it in their calendar now, then confirm the day and time, where it happens, who'll be there, and that they'll have a statement ready.",
+      "Tell the owner he'll email the details sometime this week.",
+      "Recap the full pitch so the owner remembers why they agreed.",
+    ],
+    answer: 1,
+    explanation:
+      "Specific plans get kept. Gollwitzer's research on implementation intentions and Milkman's flu-shot study both found that spelling out when and where raises follow-through. Details sent \"sometime this week\" are easy to lose, and re-pitching after a yes gives them a reason to reconsider.",
+    lesson: { id: "make-it-stick", title: "Make It Stick" },
+  },
+  {
+    prompt:
+      "On the call, Dana promised the café owner the meeting would take twenty minutes and that he'd hear honestly if he was already in good shape. What should her handoff note include?",
+    choices: [
+      "Just the owner's name, phone number and meeting time. The closer will run discovery again.",
+      "A general note that the owner is \"interested in lower rates.\"",
+      "The owner's problem in his own words, who's coming and who decides, the statement, timing, any bad past experiences, and both promises: twenty minutes, and an honest answer.",
+      "Only the problem. Promises are between Dana and the owner.",
+    ],
+    answer: 2,
+    explanation:
+      "A good handoff means the merchant never has to repeat himself, and every promise made on the call travels with the appointment. If the meeting runs long or turns into pressure, the owner learns your team can't be trusted.",
+    lesson: { id: "the-handoff", title: "Hand It Off Well" },
+  },
+];
+
 export type ModuleQuiz = {
   moduleNumber: number;
   moduleSlug: string;
@@ -500,5 +573,12 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleTitle: "Handling Common Objections",
     questions: module6Quiz,
     next: { href: "/courses/booking-appointments", label: "Continue to Module 7" },
+  },
+  "booking-appointments": {
+    moduleNumber: 7,
+    moduleSlug: "booking-appointments",
+    moduleTitle: "Booking Qualified Appointments",
+    questions: module7Quiz,
+    next: { href: "/courses", label: "Back to all modules" },
   },
 };
