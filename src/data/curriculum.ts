@@ -94,7 +94,12 @@ export const modules: Module[] = [
     { id: "appointment-plan", title: "Book the Appointment", minutes: 10, type: "exercise", href: "/practice/appointment-plan" },
     { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/booking-appointments" },
   ] },
-  { id: 8, slug: "follow-up", title: "Follow-Up Without Chasing", description: "Build a professional follow-up cadence that adds value and keeps opportunities moving.", status: "locked", lessons: [] },
+  { id: 8, slug: "follow-up", title: "Follow-Up Without Chasing", description: "Build a professional follow-up cadence that adds value and keeps opportunities moving.", status: "available", lessons: [
+    { id: "yes-comes-later", title: "Most Yeses Come Later", minutes: 3, type: "lesson" },
+    { id: "give-them-a-reason", title: "Give Them a Reason to Hear From You", minutes: 3, type: "lesson" },
+    { id: "a-cadence-you-can-keep", title: "Build a Cadence You Can Keep", minutes: 3, type: "lesson" },
+    { id: "close-the-file", title: "Know When to Close the File", minutes: 3, type: "lesson" },
+  ] },
   { id: 9, slug: "activity-mindset", title: "Activity, Mindset & Consistency", description: "Use controllable behaviors and honest scorekeeping to create durable selling habits.", status: "locked", lessons: [] },
   { id: 10, slug: "gatekeepers", title: "Working With Gatekeepers", description: "Navigate access professionally and turn gatekeepers into allies.", status: "locked", lessons: [] },
   { id: 11, slug: "vertical-practice", title: "Vertical Call Labs", description: "Practice realistic conversations across key merchant-services verticals.", status: "locked", lessons: [] },
