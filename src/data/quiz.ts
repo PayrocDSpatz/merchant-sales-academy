@@ -739,6 +739,6 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleSlug: "activity-mindset",
     moduleTitle: "Activity, Mindset & Consistency",
     questions: module9Quiz,
-    next: { href: "/courses", label: "Back to all modules" },
+    next: { href: "/courses/gatekeepers", label: "Continue to Module 10" },
   },
 };
