@@ -1,7 +1,7 @@
 import type { JournalEntry } from "@/lib/db";
 import { modules } from "@/data/curriculum";
 
-// One saved exercise (reflection, call plan, opener, pitch card, discovery plan, objection playbook, booking plan or follow-up plan), shown on My progress
+// One saved exercise (reflection, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan or consistency plan), shown on My progress
 // and in the manager's view of a rep.
 
 const s = (v: unknown) => (typeof v === "string" ? v : "");
@@ -83,6 +83,16 @@ export function JournalEntryCard({ entry }: { entry: JournalEntry }) {
         {row("CADENCE", s(d.cadence))}
         {row("CLOSING THE FILE", s(d.stopRule))}
         {row("COACH: IF THEY STAY QUIET", s(d.lastMessage), true)}
+        {row("COACH: ONE CHANGE", s(d.oneChange))}
+      </>}
+      {entry.type === "consistency-plan" && <>
+        {row("LAST WEEK'S NUMBERS", s(d.numbers))}
+        {row("RATIOS", s(d.ratios))}
+        {row("INPUT GOALS", s(d.inputs))}
+        {row("THE LEAK AND THE FIX", s(d.leak))}
+        {row("FIRST-DIAL HABIT", s(d.habit))}
+        {row("THE STORY, REWRITTEN", s(d.story))}
+        {row("COACH: MONDAY MORNING", s(d.mondayStart))}
         {row("COACH: ONE CHANGE", s(d.oneChange))}
       </>}
     </div>

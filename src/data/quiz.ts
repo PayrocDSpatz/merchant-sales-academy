@@ -604,6 +604,79 @@ export type ModuleQuiz = {
   next: { href: string; label: string };
 };
 
+export const module9Quiz: QuizQuestion[] = [
+  {
+    prompt:
+      "Dana finished both call blocks today, made 70 dials, sent every follow-up that was due, and logged every call. She booked zero appointments. A gatekeeper gave her an owner's name, and one merchant agreed to dig out a statement. How should she judge her day?",
+    choices: [
+      "As a bad day. Appointments are what the company pays for, so that's the only number that counts.",
+      "As a sign the effort isn't paying off, so she should lower tomorrow's dial goal and save her energy.",
+      "As a good day. She did her part well, and the owner's name and the statement are real small wins worth writing down.",
+      "As a reason to double tomorrow's dials until the appointments show up.",
+    ],
+    answer: 2,
+    explanation:
+      "Who answers and who's ready isn't hers to control. Dials, follow-ups and logging are, and she hit all of them. Amabile and Kramer found that small steps of progress are what make a workday feel good, so noticing them keeps her coming back tomorrow. Judging the day only by appointments makes most days feel like losing, and doubling or cutting dials reacts to a single day's outcome.",
+    lesson: { id: "work-the-inputs", title: "Work the Part You Control" },
+  },
+  {
+    prompt:
+      "Marcus's week: 300 dials, 12 decision-maker conversations, 4 appointments booked, 4 held. Where should he look first?",
+    choices: [
+      "The dials-to-conversations step. One conversation per 25 dials points to his list or the time of day he's calling.",
+      "His opener and how he asks for the meeting, since that's where most reps lose appointments.",
+      "His show rate. He should confirm appointments the day before.",
+      "Nowhere in particular. He should just work harder at every step.",
+    ],
+    answer: 0,
+    explanation:
+      "His ratios show the leak. One in three conversations becomes an appointment, and every booked appointment was held, so those steps are fine. Reaching a decision-maker only once every 25 dials is where he's losing ground, and that usually means the list or the calling times. Fixing the right step is faster than working harder at all of them.",
+    lesson: { id: "keep-honest-score", title: "Keep Honest Score" },
+  },
+  {
+    prompt:
+      "Priya counts voicemails as conversations and \"call me next week\" as appointments booked. Her numbers look great. What's the real cost?",
+    choices: [
+      "None. It keeps her motivated, and motivation drives results.",
+      "Her ratios stop meaning anything, so when results drop she can't find which step is actually leaking.",
+      "It's only a problem if her manager checks the CRM.",
+      "Voicemails should count as conversations, since she did reach the business.",
+    ],
+    answer: 1,
+    explanation:
+      "Monitoring progress helps people reach goals (Harkin's review of 138 studies), but only if the score is true. Rounding up feels better for a day, then hides the real problem. A voicemail isn't a conversation, and \"call me next week\" isn't an appointment. An honest bad week is useful. A flattering one isn't.",
+    lesson: { id: "keep-honest-score", title: "Keep Honest Score" },
+  },
+  {
+    prompt:
+      "Three weeks ago Leo started dialing his first number by 9:05, before opening email. It still doesn't feel automatic, and on Tuesday a training session knocked out his morning block. What should he do?",
+    choices: [
+      "Accept that the habit didn't take. If it isn't automatic after 21 days, it won't be.",
+      "Start the count over from day one next Monday.",
+      "Make the habit bigger, a full great call block every morning, to make up for lost time.",
+      "Get the next block in. Habits take about 66 days on average, and one missed day doesn't undo the progress. Just don't miss twice.",
+    ],
+    answer: 3,
+    explanation:
+      "Lally's study found habits took 66 days on average to become automatic, anywhere from 18 to 254, and a single missed day didn't break them. The 21-day idea isn't what the research shows. \"Start fresh Monday\" turns one missed day into several, and a bigger habit is harder to keep on a bad morning. The first dial is the part to protect.",
+    lesson: { id: "habits-that-hold", title: "Build Habits That Hold" },
+  },
+  {
+    prompt:
+      "After a week with no appointments, which explanation will help Sam most?",
+    choices: [
+      "\"I'm just not cut out for the phone.\"",
+      "\"Nothing works in this market right now. Merchants aren't buying.\"",
+      "\"This week I stopped asking for the meeting after a couple of no's. Next week I'll ask on every good call.\"",
+      "\"It was bad luck. Next week will be better on its own.\"",
+    ],
+    answer: 2,
+    explanation:
+      "Seligman and Schulman found that how agents explained setbacks predicted how much they sold and whether they quit. The best explanation is temporary (this week), specific (one step), about something Sam did that can change, and ends in an action. \"Not cut out for this\" is permanent, \"nothing works\" covers everything, and \"bad luck\" is cheerful but gives him nothing to do.",
+    lesson: { id: "bounce-back", title: "Bounce Back From a Bad Week" },
+  },
+];
+
 export const quizzes: Record<string, ModuleQuiz> = {
   "understanding-call-reluctance": {
     moduleNumber: 1,
@@ -660,5 +733,12 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleTitle: "Follow-Up Without Chasing",
     questions: module8Quiz,
     next: { href: "/courses/activity-mindset", label: "Continue to Module 9" },
+  },
+  "activity-mindset": {
+    moduleNumber: 9,
+    moduleSlug: "activity-mindset",
+    moduleTitle: "Activity, Mindset & Consistency",
+    questions: module9Quiz,
+    next: { href: "/courses", label: "Back to all modules" },
   },
 };

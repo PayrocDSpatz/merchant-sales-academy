@@ -107,6 +107,8 @@ export const modules: Module[] = [
     { id: "keep-honest-score", title: "Keep Honest Score", minutes: 3, type: "lesson" },
     { id: "habits-that-hold", title: "Build Habits That Hold", minutes: 3, type: "lesson" },
     { id: "bounce-back", title: "Bounce Back From a Bad Week", minutes: 3, type: "lesson" },
+    { id: "consistency-plan", title: "Build Your Consistency Plan", minutes: 10, type: "exercise", href: "/practice/consistency-plan" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/activity-mindset" },
   ] },
   { id: 10, slug: "gatekeepers", title: "Working With Gatekeepers", description: "Navigate access professionally and turn gatekeepers into allies.", status: "locked", lessons: [] },
   { id: 11, slug: "vertical-practice", title: "Vertical Call Labs", description: "Practice realistic conversations across key merchant-services verticals.", status: "locked", lessons: [] },

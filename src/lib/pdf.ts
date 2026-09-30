@@ -1,6 +1,6 @@
 import type { jsPDF as JsPDF } from "jspdf";
 
-// Builds the downloadable PDFs (reflection summary, knowledge-check results, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan) as real PDF files (Letter,
+// Builds the downloadable PDFs (reflection summary, knowledge-check results, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan, consistency plan) as real PDF files (Letter,
 // portrait) instead of relying on the browser's print dialog, whose margin,
 // orientation and background-graphics settings made the output inconsistent
 // between machines. The copyright footer is drawn at the same spot on every page.
@@ -794,4 +794,77 @@ export async function downloadFollowUpPlanPdf(input: FollowUpPlanPdfInput) {
   drawFooters(doc, input.date);
   const stamp = input.date.toISOString().slice(0, 10);
   doc.save(`Follow-Up Plan - ${clean(input.merchant).replace(/[\/:*?"<>|]/g, "")} - ${stamp}.pdf`);
+}
+
+export type ConsistencyPlanPdfInput = {
+  numbers: string;
+  ratios: string;
+  inputs: string;
+  leak: string;
+  habit: string;
+  story: string;
+  mondayStart: string;
+  coachVerdictLabel: string;
+  coachVerdict: "strong" | "close" | "needs_work";
+  oneChange: string;
+  date: Date;
+};
+
+// A rep's weekly consistency plan (Module 9).
+export async function downloadConsistencyPlanPdf(input: ConsistencyPlanPdfInput) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "letter", orientation: "portrait" });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const contentW = pageW - MARGIN * 2;
+  const dateText = input.date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+
+  drawHeader(doc, "CONSISTENCY PLAN  |  NEXT WEEK", clean(input.numbers), dateText);
+
+  let y = 150;
+  const ensureRoom = (needed: number) => {
+    if (y + needed > pageH - FOOTER_SPACE) {
+      doc.addPage();
+      y = MARGIN;
+    }
+  };
+  const section = (label: string, text: string, opts: { quote?: boolean; pill?: boolean } = {}) => {
+    const size = opts.quote ? 14 : 11.5;
+    doc.setFont(opts.quote ? "times" : "helvetica", "normal").setFontSize(size);
+    const lines = doc.splitTextToSize(clean(text), contentW) as string[];
+    ensureRoom(40 + lines.length * (size + 5));
+    doc.setDrawColor(...LINE).setLineWidth(0.75).line(MARGIN, y, pageW - MARGIN, y);
+    y += 22;
+    doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...MUTED);
+    doc.text(label, MARGIN, y, { charSpace: 1.2 });
+    if (opts.pill) drawPill(doc, input.coachVerdictLabel, input.coachVerdict, MARGIN + doc.getTextWidth(label) + label.length * 1.2 + 10, y);
+    y += 20;
+    doc.setFont(opts.quote ? "times" : "helvetica", "normal").setFontSize(size).setTextColor(...INK);
+    doc.text(lines, MARGIN, y, { lineHeightFactor: 1.35 });
+    y += lines.length * (size + 5) + 12;
+  };
+
+  section("YOUR RATIOS", input.ratios, { pill: true });
+  section("INPUT GOALS", input.inputs);
+  section("THE LEAK AND THE FIX", input.leak);
+  section("FIRST-DIAL HABIT", input.habit);
+  section("THE STORY, REWRITTEN", input.story);
+  section("MONDAY MORNING", input.mondayStart, { quote: true });
+
+  // One-change callout
+  doc.setFont("helvetica", "normal").setFontSize(11.5);
+  const changeLines = doc.splitTextToSize(clean(input.oneChange), contentW - 44) as string[];
+  const boxH = 52 + changeLines.length * 16;
+  ensureRoom(boxH + 10);
+  y += 4;
+  doc.setFillColor(...TINT).rect(MARGIN, y, contentW, boxH, "F");
+  doc.setFillColor(...LIME).rect(MARGIN, y, 5, boxH, "F");
+  doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...GREEN);
+  doc.text("ONE CHANGE FOR NEXT WEEK", MARGIN + 24, y + 24, { charSpace: 1.2 });
+  doc.setFont("helvetica", "normal").setFontSize(11.5).setTextColor(...INK);
+  doc.text(changeLines, MARGIN + 24, y + 44, { lineHeightFactor: 1.35 });
+
+  drawFooters(doc, input.date);
+  const stamp = input.date.toISOString().slice(0, 10);
+  doc.save(`Consistency Plan - ${stamp}.pdf`);
 }
