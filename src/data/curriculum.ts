@@ -102,7 +102,12 @@ export const modules: Module[] = [
     { id: "follow-up-plan", title: "Plan Your Follow-Up", minutes: 10, type: "exercise", href: "/practice/follow-up-plan" },
     { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/follow-up" },
   ] },
-  { id: 9, slug: "activity-mindset", title: "Activity, Mindset & Consistency", description: "Use controllable behaviors and honest scorekeeping to create durable selling habits.", status: "locked", lessons: [] },
+  { id: 9, slug: "activity-mindset", title: "Activity, Mindset & Consistency", description: "Use controllable behaviors and honest scorekeeping to create durable selling habits.", status: "available", lessons: [
+    { id: "work-the-inputs", title: "Work the Part You Control", minutes: 3, type: "lesson" },
+    { id: "keep-honest-score", title: "Keep Honest Score", minutes: 3, type: "lesson" },
+    { id: "habits-that-hold", title: "Build Habits That Hold", minutes: 3, type: "lesson" },
+    { id: "bounce-back", title: "Bounce Back From a Bad Week", minutes: 3, type: "lesson" },
+  ] },
   { id: 10, slug: "gatekeepers", title: "Working With Gatekeepers", description: "Navigate access professionally and turn gatekeepers into allies.", status: "locked", lessons: [] },
   { id: 11, slug: "vertical-practice", title: "Vertical Call Labs", description: "Practice realistic conversations across key merchant-services verticals.", status: "locked", lessons: [] },
   { id: 12, slug: "certification", title: "Appointment-Setter Certification", description: "Demonstrate call readiness through a final scenario, quiz, and action plan.", status: "locked", lessons: [] },
