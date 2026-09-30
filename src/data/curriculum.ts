@@ -115,6 +115,8 @@ export const modules: Module[] = [
     { id: "be-straight", title: "Be Straight About Who You Are", minutes: 3, type: "lesson" },
     { id: "ask-for-help", title: "Ask for Help, Not Access", minutes: 3, type: "lesson" },
     { id: "make-an-ally", title: "Turn Gatekeepers Into Allies", minutes: 3, type: "lesson" },
+    { id: "gatekeeper-plan", title: "Plan Your Front-Desk Call", minutes: 10, type: "exercise", href: "/practice/gatekeeper-plan" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/gatekeepers" },
   ] },
   { id: 11, slug: "vertical-practice", title: "Vertical Call Labs", description: "Practice realistic conversations across key merchant-services verticals.", status: "locked", lessons: [] },
   { id: 12, slug: "certification", title: "Appointment-Setter Certification", description: "Demonstrate call readiness through a final scenario, quiz, and action plan.", status: "locked", lessons: [] },

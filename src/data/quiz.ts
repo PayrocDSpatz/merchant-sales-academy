@@ -677,6 +677,79 @@ export const module9Quiz: QuizQuestion[] = [
   },
 ];
 
+export const module10Quiz: QuizQuestion[] = [
+  {
+    prompt:
+      "Alex calls a busy hair salon at 5:30 p.m. The receptionist answers while checking out a client, with two more waiting. What's his best move?",
+    choices: [
+      "Get to the point fast and ask for the owner before she has a chance to say no.",
+      "Say it sounds like a busy moment, ask who he's speaking with, and ask when a quieter time to call back would be.",
+      "Pitch her instead, since she probably runs the card machine anyway.",
+      "Hang up and try again in ten minutes without saying anything.",
+    ],
+    answer: 1,
+    explanation:
+      "The person who answers has seconds, not minutes. Noticing that before she has to say it makes him the rep who was easy to deal with, and learning her name means the next call starts warmer. Rushing past her treats her as an obstacle, pitching her skips the decision-maker, and silently calling back leaves her no reason to remember him.",
+    lesson: { id: "whos-answering", title: "Who’s Really Answering the Phone" },
+  },
+  {
+    prompt:
+      "Which of these is the best way to introduce yourself to the host at a restaurant?",
+    choices: [
+      "\"Hi, is Maria there? It's personal.\"",
+      "\"Hi, I'm returning Maria's call.\"",
+      "\"Hi, I'm a customer and I had a problem with a charge. Can I talk to the owner?\"",
+      "\"Hi, this is Alex with BytePOS. I help restaurants around here figure out what they're really paying to take cards. Who am I speaking with?\"",
+    ],
+    answer: 3,
+    explanation:
+      "Name, company, an honest reason about their business, and a request for the host's name. The other three are pretexts. Even when one works, the owner picks up already knowing they were tricked. Schweitzer, Hershey and Bradlow found that trust broken by a lie never fully recovers, even after apologies.",
+    lesson: { id: "be-straight", title: "Be Straight About Who You Are" },
+  },
+  {
+    prompt:
+      "The office manager at a dental practice asks, \"What's this regarding?\" What should the rep say?",
+    choices: [
+      "\"I help dental offices check whether their card processing fees make sense. I'd like to offer Dr. Patel a quick look at a recent statement.\"",
+      "\"Just a business matter. Is she available?\"",
+      "\"It's easier if I explain it to her directly.\"",
+      "\"We're offering dental offices our lowest rate of the year, but only this month.\"",
+    ],
+    answer: 0,
+    explanation:
+      "It's a fair question, and a specific, honest answer gives her something to pass along. Vague answers sound like you're hiding something, and \"easier to explain to her directly\" tells the office manager she isn't worth an answer. A limited-time rate is pressure plus a quoted rate, which Module 6 warns against.",
+    lesson: { id: "be-straight", title: "Be Straight About Who You Are" },
+  },
+  {
+    prompt:
+      "Which question to the person who answers is most likely to move the call forward?",
+    choices: [
+      "\"Is the owner available?\"",
+      "\"Can you put me through to whoever's in charge?\"",
+      "\"Who usually looks after the card processing there, and when's a good time to catch them for two minutes?\"",
+      "\"I really need to speak with the decision-maker. It's important.\"",
+    ],
+    answer: 2,
+    explanation:
+      "\"Is the owner available?\" and \"put me through\" ask for access, and no is the safe answer. Asking who and when asks for help, and people agree to help far more often than we expect: Flynn and Lake found people guessed they'd need to ask about twice as many strangers as they actually did. Insisting it's important just sounds like pressure.",
+    lesson: { id: "ask-for-help", title: "Ask for Help, Not Access" },
+  },
+  {
+    prompt:
+      "Last week Jenna, the host, told Alex the owner is easier to reach on Tuesdays after 2. It's Tuesday at 2:30. How should he open the call?",
+    choices: [
+      "\"Hi, can I speak to the owner, please?\"",
+      "\"Hi Jenna, it's Alex with BytePOS. You mentioned Tuesdays after two are quieter, so here I am. Is Maria around?\"",
+      "\"Hi, it's Alex. The owner's expecting my call.\"",
+      "\"Hi, I called last week. Did anyone give Maria my message?\"",
+    ],
+    answer: 1,
+    explanation:
+      "He uses Jenna's name, shows he took her advice, and picks up where they left off. Being remembered is rare in a week of sales calls, and a gatekeeper whose advice you followed is more likely to help again. Starting from scratch wastes the relationship, \"expecting my call\" is a pretext, and asking whether she passed on the message puts her on the spot.",
+    lesson: { id: "make-an-ally", title: "Turn Gatekeepers Into Allies" },
+  },
+];
+
 export const quizzes: Record<string, ModuleQuiz> = {
   "understanding-call-reluctance": {
     moduleNumber: 1,
@@ -740,5 +813,12 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleTitle: "Activity, Mindset & Consistency",
     questions: module9Quiz,
     next: { href: "/courses/gatekeepers", label: "Continue to Module 10" },
+  },
+  gatekeepers: {
+    moduleNumber: 10,
+    moduleSlug: "gatekeepers",
+    moduleTitle: "Working With Gatekeepers",
+    questions: module10Quiz,
+    next: { href: "/courses", label: "Back to all modules" },
   },
 };
