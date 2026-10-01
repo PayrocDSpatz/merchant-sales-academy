@@ -11,6 +11,13 @@ import { downloadCertificatePdf } from "@/lib/pdf";
 // The Appointment-Setter Certification. Shows the certificate once every module
 // is complete (see certification() in lib/stats), and what's left until then.
 
+// Names are shown as typed at sign-up, which is often all lowercase. On the
+// certificate, capitalize the first letter of each part ("mary-jo o'brien" ->
+// "Mary-Jo O'Brien") without lowercasing the rest, so "McKenzie" stays as is.
+function capitalizeName(name: string) {
+  return name.replace(/(^|[\s\-'’])(\p{Ll})/gu, (_, sep: string, ch: string) => sep + ch.toUpperCase());
+}
+
 export default function CertificatePage() {
   const { user, profile } = useAuth();
   const [data, setData] = useState<LearnerData | null>(null);
@@ -18,7 +25,7 @@ export default function CertificatePage() {
   const [pdfError, setPdfError] = useState("");
   useEffect(() => { if (user) loadLearnerData(user.uid).then(setData).catch(() => setError(true)); }, [user]);
 
-  const name = profile ? fullName(profile) : "";
+  const name = profile ? capitalizeName(fullName(profile)) : "";
   const cert = data ? certification(data) : null;
   const next = data ? nextItem(data) : null;
   const dateText = cert?.certifiedOn?.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
