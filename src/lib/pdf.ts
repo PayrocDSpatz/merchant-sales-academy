@@ -39,6 +39,9 @@ function clean(text: string) {
     .replace(/[‘’]/g, "'")
     .replace(/[“”]/g, '"')
     .replace(/…/g, "...")
+    .replace(/[→⇒➔]/g, "->")
+    .replace(/[←⇐]/g, "<-")
+    .replace(/•/g, "-")
     .replace(/[^\x00-\xFF]/g, "")
     .trim();
 }
