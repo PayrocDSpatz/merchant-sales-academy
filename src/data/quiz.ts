@@ -819,6 +819,6 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleSlug: "gatekeepers",
     moduleTitle: "Working With Gatekeepers",
     questions: module10Quiz,
-    next: { href: "/courses", label: "Back to all modules" },
+    next: { href: "/courses/vertical-practice", label: "Continue to Module 11" },
   },
 };
