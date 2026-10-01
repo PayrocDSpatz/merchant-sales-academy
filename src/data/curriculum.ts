@@ -123,6 +123,8 @@ export const modules: Module[] = [
     { id: "retail-lab", title: "Lab: The Two-Store Retailer", minutes: 4, type: "lesson" },
     { id: "service-lab", title: "Lab: The Auto Repair Shop", minutes: 4, type: "lesson" },
     { id: "ecommerce-lab", title: "Lab: The Online Store", minutes: 4, type: "lesson" },
+    { id: "call-lab", title: "Build Your Own Call Lab", minutes: 10, type: "exercise", href: "/practice/call-lab" },
+    { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/vertical-practice" },
   ] },
   { id: 12, slug: "certification", title: "Appointment-Setter Certification", description: "Demonstrate call readiness through a final scenario, quiz, and action plan.", status: "locked", lessons: [] },
 ];

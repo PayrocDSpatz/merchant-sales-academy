@@ -1,7 +1,7 @@
 import type { JournalEntry } from "@/lib/db";
 import { modules } from "@/data/curriculum";
 
-// One saved exercise (reflection, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan, consistency plan or front-desk plan), shown on My progress
+// One saved exercise (reflection, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan, consistency plan, front-desk plan or call lab), shown on My progress
 // and in the manager's view of a rep.
 
 const s = (v: unknown) => (typeof v === "string" ? v : "");
@@ -103,6 +103,18 @@ export function JournalEntryCard({ entry }: { entry: JournalEntry }) {
         {row("WHEN IT'S A NO", s(d.theNo))}
         {row("MAKING AN ALLY", s(d.ally))}
         {row("COACH: ONCE PUT THROUGH", s(d.ownerOpener), true)}
+        {row("COACH: ONE CHANGE", s(d.oneChange))}
+      </>}
+      {entry.type === "call-lab" && <>
+        {row("VERTICAL", s(d.vertical))}
+        {row("WHO ANSWERS", s(d.answerer))}
+        {row("THE SETUP", s(d.setup))}
+        {row("THE OPENING", s(d.opening))}
+        {row("THE HARD MOMENT", s(d.objection))}
+        {row("THE ASK", s(d.ask))}
+        {typeof d.movesHit === "number" && row("COACH: FIVE MOVES", `${d.movesHit} of 5${s(d.movesMissed) ? `. Missed: ${s(d.movesMissed)}` : ""}`)}
+        {row("COACH: CURVEBALL", s(d.curveball), true)}
+        {row("COACH: YOU COULD SAY", s(d.curveballAnswer), true)}
         {row("COACH: ONE CHANGE", s(d.oneChange))}
       </>}
     </div>

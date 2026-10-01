@@ -750,6 +750,79 @@ export const module10Quiz: QuizQuestion[] = [
   },
 ];
 
+export const module11Quiz: QuizQuestion[] = [
+  {
+    prompt:
+      "Alex calls a pizzeria at 2:45 p.m. The owner says, \"Look, we're happy with who we have.\" What's his best next line?",
+    choices: [
+      "\"A lot of owners think that until they see what they're really paying.\"",
+      "\"I can beat whatever rate you're on today. What are you paying?\"",
+      "\"Good, that's what you want. Out of curiosity, do you know roughly what a $30 delivery order actually nets you?\"",
+      "\"No problem. I'll send you some information and you can look at it when you have time.\"",
+    ],
+    answer: 2,
+    explanation:
+      "He takes the owner at their word, then asks one easy question with a number in the owner's own terms. Hinting that the owner is wrong attacks their decision, promising to beat an unknown rate is a guess, and a brochure ends the call with nothing learned.",
+    lesson: { id: "restaurant-lab", title: "Lab: The Neighborhood Pizzeria" },
+  },
+  {
+    prompt:
+      "Alex calls a running shop at 10:15 a.m. The manager says the owner isn't in until noon. What gives Alex the best chance of booking a meeting?",
+    choices: [
+      "Ask the manager something he knows first-hand, like whether both stores run on the same register system, then ask when the owner is easiest to reach.",
+      "Thank him and hang up, since only the owner can make the decision.",
+      "Pitch the manager so he can sell the owner on it later.",
+      "Ask for the owner's cell phone number so he can reach her directly.",
+    ],
+    answer: 0,
+    explanation:
+      "The manager knew exactly where it hurt: he adds up two stores by hand every Sunday. That gave Alex a reason about the business, credited to someone the owner trusts, and the best time to call. Hanging up wastes the call, pitching the manager skips the decision-maker, and asking for a personal number asks for access instead of help.",
+    lesson: { id: "retail-lab", title: "Lab: The Two-Store Retailer" },
+  },
+  {
+    prompt:
+      "Kerr and Booth had one group of children practice tossing beanbags only from three feet, and another only from two and four feet. Tested from three feet, the varied group was more accurate. What does that mean for practicing calls?",
+    choices: [
+      "Practice only the vertical you call most, since that's the call you need to get right.",
+      "Practice doesn't matter much. Live calls are the only real practice.",
+      "Practice your opener until it's word-perfect, then use the same one for every business.",
+      "Practicing calls across different verticals makes you better at each one, including the one you call every day.",
+    ],
+    answer: 3,
+    explanation:
+      "Varied practice beat practice at the exact target distance. Rehearsing the restaurant, the shop, the repair bay and the online store builds skill that carries over to all of them. Only practicing one kind of call, or one script, is the three-feet-only group.",
+    lesson: { id: "retail-lab", title: "Lab: The Two-Store Retailer" },
+  },
+  {
+    prompt:
+      "An auto shop owner picks up and says, \"What's your rate?\" What should Alex say?",
+    choices: [
+      "Quote a low rate to get the owner's attention, and explain the details later.",
+      "\"Anyone who quotes you a rate without seeing your statement is guessing, because it depends on your mix of cards and how many are keyed in versus tapped. Do you take a lot of cards over the phone?\"",
+      "\"I can't discuss pricing on the phone. Can we set up a meeting?\"",
+      "Offer a discount right away so the owner doesn't hang up.",
+    ],
+    answer: 1,
+    explanation:
+      "He explains honestly why a quoted rate would be a guess, then turns the question into discovery. Keyed-in payments led straight to the reason for a statement review. A quoted rate becomes the anchor for everything after it, refusing to talk sounds evasive, and a phone discount gives away value before he knows anything.",
+    lesson: { id: "service-lab", title: "Lab: The Auto Repair Shop" },
+  },
+  {
+    prompt:
+      "Alex listens back to a practice call. He froze when the merchant said \"not interested.\" Based on Kluger and DeNisi's research on feedback, which note will help him most?",
+    choices: [
+      "\"I'm just not good at handling rejection.\"",
+      "\"That call was terrible. I need to be more confident.\"",
+      "\"I paused, but didn't acknowledge it. Next time: 'That's fair, you weren't expecting my call,' then one easy question.\"",
+      "\"The merchant was rude. Nothing would have worked.\"",
+    ],
+    answer: 2,
+    explanation:
+      "Kluger and DeNisi found that feedback made performance worse in about a third of cases, mostly when it pulled attention toward the person instead of the task. A note about a specific move he can fix keeps his attention on the task. Notes about his talent or the merchant don't give him anything to change.",
+    lesson: { id: "ecommerce-lab", title: "Lab: The Online Store" },
+  },
+];
+
 export const quizzes: Record<string, ModuleQuiz> = {
   "understanding-call-reluctance": {
     moduleNumber: 1,
@@ -820,5 +893,12 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleTitle: "Working With Gatekeepers",
     questions: module10Quiz,
     next: { href: "/courses/vertical-practice", label: "Continue to Module 11" },
+  },
+  "vertical-practice": {
+    moduleNumber: 11,
+    moduleSlug: "vertical-practice",
+    moduleTitle: "Vertical Call Labs",
+    questions: module11Quiz,
+    next: { href: "/courses", label: "Back to all modules" },
   },
 };
