@@ -1,0 +1,52 @@
+// Merchants for Module 12's final scenario call. The rep picks one; the page
+// shows the profile and the API route sends the same profile to the coach, so
+// both sides grade against identical facts.
+
+export type Scenario = {
+  id: string;
+  business: string;
+  vertical: string;
+  answerer: string;
+  decisionMaker: string;
+  profile: string;
+  objection: string;
+};
+
+export const scenarios: Scenario[] = [
+  {
+    id: "lucias-kitchen",
+    business: "Lucia’s Kitchen",
+    vertical: "Restaurant",
+    answerer: "Marcus, the host",
+    decisionMaker: "Lucia, the owner",
+    profile: "Family-owned Mexican restaurant, one location, about 60 seats. Lucia works the kitchen most days. Their website says they started taking catering orders this year. The lunch rush ends around 1:30, and dinner starts filling up at 5.",
+    objection: "We’re happy with who we have.",
+  },
+  {
+    id: "brightside-dental",
+    business: "Brightside Family Dental",
+    vertical: "Dental office",
+    answerer: "Karen, the office manager",
+    decisionMaker: "Dr. Ellen Moss, the owner",
+    profile: "Two dentists. Karen runs the front desk, billing and vendor calls. Patients pay copays and balances at checkout, and the practice uses dental practice-management software for scheduling and billing. The front desk is busiest first thing in the morning and right after lunch.",
+    objection: "Just send me some information.",
+  },
+  {
+    id: "coastline-plumbing",
+    business: "Coastline Plumbing",
+    vertical: "Service business",
+    answerer: "Denise, who handles the books and the office line",
+    decisionMaker: "Rick, the owner",
+    profile: "Five trucks doing residential repairs and water heaters. Techs collect payment when the job is done, often by having the customer read a card number to the office over the phone. Rick is in the field most of the day and is usually reachable before 7:30 a.m. or after 4:30 p.m.",
+    objection: "What’s your rate?",
+  },
+  {
+    id: "fern-and-fig",
+    business: "Fern & Fig",
+    vertical: "Retail and online store",
+    answerer: "Priya, the owner, who usually answers the store phone herself",
+    decisionMaker: "Priya, the owner",
+    profile: "Women’s clothing boutique downtown that opened an online store last fall. The store opens at 10, and weekends are busiest. Priya posted on the store’s social media that online returns have been a headache.",
+    objection: "Not interested.",
+  },
+];

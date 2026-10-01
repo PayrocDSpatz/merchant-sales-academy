@@ -11,6 +11,7 @@ export type NavLink = { href: string; label: string; title: string };
 // Previous/next for any item in a module (lesson, exercise or quiz), so every
 // page in a module navigates the same way. The last item points to the next
 // module's first item, or back to the catalog if that module isn't written yet.
+// The very last item (Module 12's action plan) points to the certificate.
 export function moduleNeighbors(moduleSlug: string, itemId: string) {
   const mIdx = modules.findIndex((m) => m.slug === moduleSlug);
   const module = modules[mIdx];
@@ -29,7 +30,9 @@ export function moduleNeighbors(moduleSlug: string, itemId: string) {
     const nextModule = modules[mIdx + 1];
     next = nextModule && nextModule.lessons.length && nextModule.status !== "preview"
       ? { href: lessonHref(nextModule.slug, nextModule.lessons[0]), label: `Module ${nextModule.id}`, title: nextModule.title }
-      : { href: "/courses", label: "All modules", title: "Back to the catalog" };
+      : !nextModule && module.slug === "certification"
+        ? { href: "/certificate", label: "Certification", title: "Your certificate" }
+        : { href: "/courses", label: "All modules", title: "Back to the catalog" };
   }
   return { module, index, total: module.lessons.length, prev, next };
 }
@@ -126,5 +129,12 @@ export const modules: Module[] = [
     { id: "call-lab", title: "Build Your Own Call Lab", minutes: 10, type: "exercise", href: "/practice/call-lab" },
     { id: "knowledge-check", title: "Module Knowledge Check", minutes: 5, type: "quiz", href: "/quiz/vertical-practice" },
   ] },
-  { id: 12, slug: "certification", title: "Appointment-Setter Certification", description: "Demonstrate call readiness through a final scenario, quiz, and action plan.", status: "locked", lessons: [] },
+  { id: 12, slug: "certification", title: "Appointment-Setter Certification", description: "Demonstrate call readiness through a final scenario, quiz, and action plan.", status: "available", lessons: [
+    { id: "call-ready", title: "What Call-Ready Means", minutes: 3, type: "lesson" },
+    { id: "the-whole-call", title: "The Whole Call, Start to Finish", minutes: 3, type: "lesson" },
+    { id: "next-30-days", title: "Your Next 30 Days", minutes: 3, type: "lesson" },
+    { id: "final-scenario", title: "Final Scenario Call", minutes: 15, type: "exercise", href: "/practice/final-scenario" },
+    { id: "knowledge-check", title: "Final Exam", minutes: 10, type: "quiz", href: "/quiz/certification" },
+    { id: "action-plan", title: "Your 30-Day Action Plan", minutes: 10, type: "exercise", href: "/practice/action-plan" },
+  ] },
 ];

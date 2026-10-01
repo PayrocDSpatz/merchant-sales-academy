@@ -8,7 +8,8 @@ export type QuizQuestion = {
   choices: string[];
   answer: number;
   explanation: string;
-  lesson: { id: string; title: string };
+  // moduleSlug is set when the lesson is in a different module from the quiz (the final exam).
+  lesson: { id: string; title: string; moduleSlug?: string };
 };
 
 export const PASS_MARK = 4;
@@ -602,6 +603,9 @@ export type ModuleQuiz = {
   moduleTitle: string;
   questions: QuizQuestion[];
   next: { href: string; label: string };
+  // Overrides for the final exam: its own eyebrow label and pass mark.
+  label?: string;
+  passMark?: number;
 };
 
 export const module9Quiz: QuizQuestion[] = [
@@ -823,6 +827,148 @@ export const module11Quiz: QuizQuestion[] = [
   },
 ];
 
+// Module 12's final exam: one scenario question from each of Modules 1-10.
+// Each lesson link names its own module, since none of them are in Module 12.
+export const finalExam: QuizQuestion[] = [
+  {
+    prompt:
+      "It's 9:00 and Alex's call block has started. He's spent the last 40 minutes researching his first five merchants and tidying up his CRM, and hasn't dialed yet. What's going on, and what's the fix?",
+    choices: [
+      "Good preparation. Research every lead thoroughly before dialing, however long it takes.",
+      "The avoidance loop: busy work that relieves the discomfort of dialing. Cap research at five minutes and dial before touching anything else.",
+      "He's tired. He should take a break and start the block in the afternoon.",
+      "He isn't motivated enough. He should wait until he feels ready, then make all his calls at once.",
+    ],
+    answer: 1,
+    explanation:
+      "Research and CRM cleanup feel productive, and the relief they bring trains the brain to keep avoiding the dial. The loop isn't broken by willpower or waiting to feel ready. It's broken by a hard boundary: a five-minute research cap and dialing first.",
+    lesson: { id: "avoidance-loop", title: "The Avoidance Loop", moduleSlug: "understanding-call-reluctance" },
+  },
+  {
+    prompt:
+      "Alex set a target of 50 dials today. His first ten calls all go badly. What should he do with the number?",
+    choices: [
+      "Lower it to 30, since today clearly isn't a good day.",
+      "Drop the number and make calls until he feels the day turn around.",
+      "Switch to calling only warm leads for the rest of the day.",
+      "Keep it. The eleventh call doesn't know about the first ten, and shrinking the number on hard days is how it stops meaning anything.",
+    ],
+    answer: 3,
+    explanation:
+      "The target is set from the list, not from how the morning feels. Locke and Latham's research found specific goals beat vague ones, and a number that shrinks whenever the morning goes badly turns back into a vague one.",
+    lesson: { id: "setting-your-number", title: "Setting a Real Daily Target", moduleSlug: "preparing-to-make-calls" },
+  },
+  {
+    prompt: "Which opener is the strongest?",
+    choices: [
+      "\"Hi Maria, this is Alex with BytePOS. I saw you opened a second location this spring. Did you keep the same processor for both?\"",
+      "\"Hi, sorry to bother you, I know you're busy. Do you have a minute to talk about your credit card processing?\"",
+      "\"Hi Maria, how are you today? I'm calling because we're offering great rates on processing this month.\"",
+      "\"Hi, this is Alex. Would you like to save money on your processing fees?\"",
+    ],
+    answer: 0,
+    explanation:
+      "Name, company, a reason that's about her business, and an easy question she can answer in a few words. The others apologize, invite a reflex no, or pitch before earning the right to.",
+    lesson: { id: "a-reason-about-them", title: "Give Them a Reason That’s About Them", moduleSlug: "opening-the-conversation" },
+  },
+  {
+    prompt:
+      "Alex wants a restaurant owner to picture what faster funding would mean. Which line does that best?",
+    choices: [
+      "\"We offer industry-leading funding speed.\"",
+      "\"Faster funding improves your cash flow and efficiency.\"",
+      "\"The money from Friday's dinner service would be in your account Saturday instead of Tuesday.\"",
+      "\"We're one of the fastest processors in the country.\"",
+    ],
+    answer: 2,
+    explanation:
+      "Concrete language in the merchant's own terms is easier to picture and more believable. Hansen and Wänke found people rated the same claim as more likely to be true when it was put concretely. The other three are abstract claims the owner can't check against their own business.",
+    lesson: { id: "speak-in-their-numbers", title: "Speak in Their Numbers", moduleSlug: "earning-attention" },
+  },
+  {
+    prompt:
+      "In discovery, a store owner says, \"Honestly, the fees are all over the place.\" What's Alex's best next question?",
+    choices: [
+      "\"Got it. Next question: how many terminals do you have?\"",
+      "\"All over the place how? Different every month, or just higher than you expected?\"",
+      "\"That's exactly why you should switch to us.\"",
+      "\"What's your current rate?\"",
+    ],
+    answer: 1,
+    explanation:
+      "\"Honestly\" and \"all over the place\" signal a real frustration. A follow-up that clarifies their words shows he was listening and tells him far more than his next scripted question. Huang and colleagues found follow-up questions are what make people like the person asking.",
+    lesson: { id: "follow-the-answer", title: "Follow the Answer", moduleSlug: "discovery-questions" },
+  },
+  {
+    prompt:
+      "A merchant tells Alex, \"You're too expensive.\" What's the best response?",
+    choices: [
+      "\"Too expensive compared to what?\" Then compare total cost, not headline rates.",
+      "Offer a discount on the spot so the call doesn't end.",
+      "Quote a lower rate than whatever they mentioned.",
+      "Tell them their current processor is probably overcharging them.",
+    ],
+    answer: 0,
+    explanation:
+      "Often they're comparing against a teaser rate or a flat-rate reader. Asking what they're comparing to, then comparing total cost from a real statement, is honest and useful. A phone discount or a lower quoted rate competes on a number he hasn't earned the right to quote, and attacking their processor attacks their decision.",
+    lesson: { id: "price-resistance", title: "“What’s Your Rate?” and Price Pushback", moduleSlug: "handling-objections" },
+  },
+  {
+    prompt: "Which of these appointments is qualified?",
+    choices: [
+      "The owner said he's \"open to a look sometime,\" and Alex booked Thursday.",
+      "The cashier agreed to meet, since the owner is hard to reach.",
+      "The owner agreed to meet but has no recent statement and doesn't want to look for one.",
+      "The owner said fees jump every month and she doesn't know why. She and her bookkeeper will both be there Thursday at 3, with last month's statement.",
+    ],
+    answer: 3,
+    explanation:
+      "A qualified appointment has a reason in the merchant's own words, the right people in the room, a recent statement so the meeting deals in real numbers, and nothing hidden that would block a change. The others are missing a real reason, the decision-maker, or the statement.",
+    lesson: { id: "qualified-appointment", title: "What Makes an Appointment Qualified", moduleSlug: "booking-appointments" },
+  },
+  {
+    prompt:
+      "Alex has followed up with a merchant five times over two months, each time with something useful, and has never heard back. What now?",
+    choices: [
+      "Keep calling every few days until someone answers.",
+      "Stop without saying anything and remove them from his list for good.",
+      "Send a short, honest last note saying he'll stop reaching out, and that he's happy to help if anything changes. Then actually stop.",
+      "Have a teammate call them pretending to be a new rep.",
+    ],
+    answer: 2,
+    explanation:
+      "Good follow-up has an end. An honest closing note often gets the reply nothing else did, leaves the door open, and ends on good terms. Chasing damages his reputation, disappearing wastes the relationship, and a pretext is never okay.",
+    lesson: { id: "close-the-file", title: "Know When to Close the File", moduleSlug: "follow-up" },
+  },
+  {
+    prompt: "Which daily goal follows what the course teaches about activity?",
+    choices: [
+      "Two call blocks and 60 dials a day, tracking appointments each week to learn what's working.",
+      "Book three appointments a day, no matter what.",
+      "Make calls until the day feels productive.",
+      "Only call the leads most likely to say yes, so the numbers look good.",
+    ],
+    answer: 0,
+    explanation:
+      "Set daily goals for the inputs you control: blocks and dials. Appointments are worth tracking to learn from, but they depend partly on the merchant, so they make a poor daily target. A feeling isn't a goal, and only calling easy leads makes the numbers dishonest.",
+    lesson: { id: "work-the-inputs", title: "Work the Part You Control", moduleSlug: "activity-mindset" },
+  },
+  {
+    prompt:
+      "The office manager at a dental practice asks, \"What's this regarding?\" What should Alex say?",
+    choices: [
+      "\"It's a personal matter for Dr. Moss.\"",
+      "\"I'd like to offer Dr. Moss a quick look at the practice's processing statement, to see whether the fees make sense. Who usually handles that?\"",
+      "\"Just a business matter. Is she available?\"",
+      "\"She's expecting my call.\"",
+    ],
+    answer: 1,
+    explanation:
+      "A specific, honest answer gives the office manager something to pass along, and asking who handles it turns her into a guide. The others are pretexts or vague dodges. Even when one works, the owner picks up already knowing she was tricked.",
+    lesson: { id: "be-straight", title: "Be Straight About Who You Are", moduleSlug: "gatekeepers" },
+  },
+];
+
 export const quizzes: Record<string, ModuleQuiz> = {
   "understanding-call-reluctance": {
     moduleNumber: 1,
@@ -899,6 +1045,15 @@ export const quizzes: Record<string, ModuleQuiz> = {
     moduleSlug: "vertical-practice",
     moduleTitle: "Vertical Call Labs",
     questions: module11Quiz,
-    next: { href: "/courses", label: "Back to all modules" },
+    next: { href: "/courses/certification", label: "Continue to Module 12" },
+  },
+  certification: {
+    moduleNumber: 12,
+    moduleSlug: "certification",
+    moduleTitle: "Appointment-Setter Certification: Final Exam",
+    questions: finalExam,
+    next: { href: "/practice/action-plan", label: "Continue to your 30-day action plan" },
+    label: "Module 12 final exam",
+    passMark: 8,
   },
 };

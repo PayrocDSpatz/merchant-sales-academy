@@ -88,3 +88,18 @@ export function lastActive(data: LearnerData) {
   const days = Object.keys(data.days).filter((k) => data.days[k] > 0).sort();
   return days.length ? days[days.length - 1] : null;
 }
+
+// Appointment-Setter Certification: every item in every module is complete
+// (the final scenario only completes on a passing call, the final exam only on
+// a pass). A module that isn't written or released yet blocks it. Certified on
+// the date the last Module 12 item was completed.
+export function certification(data: LearnerData) {
+  const remaining = modules
+    .map((m) => ({ module: m, ...moduleCompletion(m, data) }))
+    .filter((c) => c.module.lessons.length === 0 || c.module.status === "preview" || c.completed < c.total);
+  const certified = remaining.length === 0;
+  const finalItems = data.progress.filter((p) => p.moduleSlug === "certification" && p.completedAt);
+  const certifiedOn = certified && finalItems.length ? new Date(Math.max(...finalItems.map((p) => p.completedAt!.getTime()))) : null;
+  const exam = bestQuizScores(data).certification;
+  return { certified, certifiedOn, examScore: exam ? `${exam.score} of ${exam.total}` : null, remaining };
+}

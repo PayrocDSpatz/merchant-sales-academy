@@ -103,16 +103,17 @@ export function MarkComplete({ moduleSlug, itemId, minutes }: { moduleSlug: stri
 }
 
 // Saves a finished exercise to the rep's journal and marks it complete. Call
-// from the exercise's finish screen; runs once per mount.
-export function useSaveExercise(entry: { type: JournalType; moduleSlug: string; itemId: string; title: string; data: Record<string, unknown> }) {
+// from the exercise's finish screen; runs once per mount. Pass complete: false
+// to save without completing (the final scenario only counts once it passes).
+export function useSaveExercise(entry: { type: JournalType; moduleSlug: string; itemId: string; title: string; data: Record<string, unknown>; complete?: boolean }) {
   const { user } = useAuth();
   const saved = useRef(false);
   const [status, setStatus] = useState<"saving" | "saved" | "error">("saving");
   useEffect(() => {
     if (!user || saved.current) return;
     saved.current = true;
-    const { itemId, ...journal } = entry;
-    Promise.all([saveJournal(user.uid, journal), markComplete(user.uid, entry.moduleSlug, itemId)])
+    const { itemId, complete = true, ...journal } = entry;
+    Promise.all([saveJournal(user.uid, journal), complete ? markComplete(user.uid, entry.moduleSlug, itemId) : null])
       .then(() => setStatus("saved"))
       .catch(() => setStatus("error"));
   }, [user, entry]);

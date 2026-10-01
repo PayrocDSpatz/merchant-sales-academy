@@ -1,7 +1,7 @@
 import type { JournalEntry } from "@/lib/db";
 import { modules } from "@/data/curriculum";
 
-// One saved exercise (reflection, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan, consistency plan, front-desk plan or call lab), shown on My progress
+// One saved exercise (reflection, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan, consistency plan, front-desk plan, call lab, final scenario or action plan), shown on My progress
 // and in the manager's view of a rep.
 
 const s = (v: unknown) => (typeof v === "string" ? v : "");
@@ -115,6 +115,26 @@ export function JournalEntryCard({ entry }: { entry: JournalEntry }) {
         {typeof d.movesHit === "number" && row("COACH: FIVE MOVES", `${d.movesHit} of 5${s(d.movesMissed) ? `. Missed: ${s(d.movesMissed)}` : ""}`)}
         {row("COACH: CURVEBALL", s(d.curveball), true)}
         {row("COACH: YOU COULD SAY", s(d.curveballAnswer), true)}
+        {row("COACH: ONE CHANGE", s(d.oneChange))}
+      </>}
+      {entry.type === "final-scenario" && <>
+        {row("MERCHANT", `${s(d.scenario)} (${s(d.vertical)}). Objection: “${s(d.objectionGiven)}”`)}
+        {row("TIMING AND REASON", s(d.timing))}
+        {row("THE FRONT DESK", s(d.frontDesk))}
+        {row("OPENER AND DISCOVERY", s(d.opener))}
+        {row("THE OBJECTION", s(d.objection))}
+        {row("THE ASK", s(d.ask))}
+        {row("THE FOLLOW-UP", s(d.followUp))}
+        {typeof d.movesHit === "number" && row("COACH: FIVE MOVES", `${d.movesHit} of 5`)}
+        {row("COACH: BEST PART", s(d.strength))}
+        {row(d.passed ? "COACH: PROTECT THIS" : "COACH: MOST IMPORTANT FIX", s(d.oneChange))}
+      </>}
+      {entry.type === "action-plan" && <>
+        {row("DAILY INPUTS", s(d.inputs))}
+        {row("ONE SKILL A WEEK", s(d.focus))}
+        {row("KEEPING SCORE", s(d.score))}
+        {row("THE BAD WEEK", s(d.badWeek))}
+        {row("COACH: DAY ONE", s(d.dayOne))}
         {row("COACH: ONE CHANGE", s(d.oneChange))}
       </>}
     </div>

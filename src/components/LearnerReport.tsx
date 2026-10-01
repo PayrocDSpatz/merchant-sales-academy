@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { loadLearnerData, type LearnerData } from "@/lib/db";
-import { bestQuizScores, formatDuration, moduleCompletion, openModules, overallCompletion, quizAverage, streak, totalSeconds } from "@/lib/stats";
+import { bestQuizScores, certification, formatDuration, moduleCompletion, openModules, overallCompletion, quizAverage, streak, totalSeconds } from "@/lib/stats";
 import { modules } from "@/data/curriculum";
 import { JournalEntryCard } from "./JournalEntryCard";
 
@@ -21,9 +21,11 @@ export function LearnerReport({ uid }: { uid: string }) {
   const q = quizAverage(data);
   const best = bestQuizScores(data);
   const st = streak(data);
+  const cert = certification(data);
   const moduleTitle = (slug: string) => modules.find((m) => m.slug === slug)?.title ?? slug;
 
   return <>
+    {cert.certified && <div className="card" style={{ padding: "18px 24px", marginBottom: 16, background: "var(--green)", color: "white", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}><div><small style={{ color: "var(--lime)", fontWeight: 900, letterSpacing: ".12em" }}>CERTIFIED</small><div style={{ fontFamily: "Georgia,serif", fontSize: 22, marginTop: 4 }}>Appointment-Setter Certification</div></div><span style={{ fontSize: 14, color: "#e3ece8" }}>{cert.certifiedOn?.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}{cert.examScore ? ` · Final exam ${cert.examScore}` : ""}</span></div>}
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))", gap: 16 }}>
       {[[`${overall.pct}%`, `Complete (${overall.completed} of ${overall.total} items)`], [formatDuration(totalSeconds(data)), "Active training time"], [String(st), "Day streak"], [q === null ? "–" : `${q}%`, "Knowledge-check average"]].map(([v, l]) =>
         <div className="card" key={l} style={{ padding: 24 }}><b style={{ fontFamily: "Georgia,serif", fontSize: 38 }}>{v}</b><span style={{ display: "block", color: "var(--muted)", marginTop: 7, fontSize: 14 }}>{l}</span></div>)}

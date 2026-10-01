@@ -1,7 +1,7 @@
 import type { jsPDF as JsPDF } from "jspdf";
 
-// Builds the downloadable PDFs (reflection summary, knowledge-check results, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan, consistency plan, front-desk plan, call lab) as real PDF files (Letter,
-// portrait) instead of relying on the browser's print dialog, whose margin,
+// Builds the downloadable PDFs (reflection summary, knowledge-check results, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan, consistency plan, front-desk plan, call lab, final scenario, action plan, certificate) as real PDF files (Letter,
+// portrait; the certificate is landscape) instead of relying on the browser's print dialog, whose margin,
 // orientation and background-graphics settings made the output inconsistent
 // between machines. The copyright footer is drawn at the same spot on every page.
 
@@ -1035,4 +1035,166 @@ export async function downloadCallLabPdf(input: CallLabPdfInput) {
   drawFooters(doc, input.date);
   const stamp = input.date.toISOString().slice(0, 10);
   doc.save(`Call Lab - ${clean(input.merchant).replace(/[\/:*?"<>|]/g, "")} - ${stamp}.pdf`);
+}
+
+// Shared body for the plain "label, then text" PDFs below: a section writer
+// that adds pages as needed, and the tinted callout box at the end.
+function sectionWriter(doc: JsPDF, startY: number, pillLabel: string, pillVerdict: ReflectionPdfInput["verdict"]) {
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const contentW = pageW - MARGIN * 2;
+  let y = startY;
+  const ensureRoom = (needed: number) => {
+    if (y + needed > pageH - FOOTER_SPACE) {
+      doc.addPage();
+      y = MARGIN;
+    }
+  };
+  const section = (label: string, text: string, opts: { quote?: boolean; pill?: boolean; color?: [number, number, number] } = {}) => {
+    const size = opts.quote ? 14 : 11.5;
+    doc.setFont(opts.quote ? "times" : "helvetica", "normal").setFontSize(size);
+    const lines = doc.splitTextToSize(opts.quote ? `"${clean(text)}"` : clean(text), contentW) as string[];
+    ensureRoom(40 + lines.length * (size + 5));
+    doc.setDrawColor(...LINE).setLineWidth(0.75).line(MARGIN, y, pageW - MARGIN, y);
+    y += 22;
+    doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...(opts.color ?? MUTED));
+    doc.text(label, MARGIN, y, { charSpace: 1.2 });
+    if (opts.pill) drawPill(doc, pillLabel, pillVerdict, MARGIN + doc.getTextWidth(label) + label.length * 1.2 + 10, y);
+    y += 20;
+    doc.setFont(opts.quote ? "times" : "helvetica", "normal").setFontSize(size).setTextColor(...INK);
+    doc.text(lines, MARGIN, y, { lineHeightFactor: 1.35 });
+    y += lines.length * (size + 5) + 12;
+  };
+  const callout = (label: string, text: string) => {
+    doc.setFont("helvetica", "normal").setFontSize(11.5);
+    const lines = doc.splitTextToSize(clean(text), contentW - 44) as string[];
+    const boxH = 52 + lines.length * 16;
+    ensureRoom(boxH + 10);
+    y += 4;
+    doc.setFillColor(...TINT).rect(MARGIN, y, contentW, boxH, "F");
+    doc.setFillColor(...LIME).rect(MARGIN, y, 5, boxH, "F");
+    doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...GREEN);
+    doc.text(label, MARGIN + 24, y + 24, { charSpace: 1.2 });
+    doc.setFont("helvetica", "normal").setFontSize(11.5).setTextColor(...INK);
+    doc.text(lines, MARGIN + 24, y + 44, { lineHeightFactor: 1.35 });
+    y += boxH + 10;
+  };
+  return { section, callout };
+}
+
+export type FinalScenarioPdfInput = {
+  business: string;
+  vertical: string;
+  profile: string;
+  objectionGiven: string;
+  timing: string;
+  frontDesk: string;
+  opener: string;
+  objection: string;
+  ask: string;
+  followUp: string;
+  sections: { title: string; good: boolean }[];
+  strength: string;
+  coachVerdictLabel: string;
+  coachVerdict: "strong" | "close" | "needs_work";
+  oneChange: string;
+  date: Date;
+};
+
+// One attempt at the certification call (Module 12). Parts the coach marked
+// for a fix are labeled in red.
+export async function downloadFinalScenarioPdf(input: FinalScenarioPdfInput) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "letter", orientation: "portrait" });
+  const dateText = input.date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  drawHeader(doc, `FINAL SCENARIO CALL  |  ${clean(input.vertical).toUpperCase()}`, clean(input.business), dateText);
+
+  const { section, callout } = sectionWriter(doc, 150, input.coachVerdictLabel, input.coachVerdict);
+  const fix = (title: string) => input.sections.find((s) => s.title === title)?.good === false;
+  const part = (title: string, text: string) => section(fix(title) ? `${title.toUpperCase()}  |  NEEDS A FIX` : title.toUpperCase(), text, { color: fix(title) ? [163, 50, 11] : undefined });
+
+  section("THE MERCHANT", `${input.profile} Objection: "${input.objectionGiven}"`, { pill: true });
+  part("Timing and reason", input.timing);
+  part("The front desk", input.frontDesk);
+  part("Opener and discovery", input.opener);
+  part("The objection", input.objection);
+  part("The ask", input.ask);
+  part("The follow-up", input.followUp);
+  section("BEST PART", input.strength);
+  callout(input.coachVerdict === "strong" ? "PROTECT THIS ON LIVE CALLS" : "THE MOST IMPORTANT FIX", input.oneChange);
+
+  drawFooters(doc, input.date);
+  const stamp = input.date.toISOString().slice(0, 10);
+  doc.save(`Final Scenario - ${clean(input.business).replace(/[\/:*?"<>|]/g, "")} - ${stamp}.pdf`);
+}
+
+export type ActionPlanPdfInput = {
+  inputs: string;
+  focus: string;
+  score: string;
+  badWeek: string;
+  dayOne: string;
+  coachVerdictLabel: string;
+  coachVerdict: "strong" | "close" | "needs_work";
+  oneChange: string;
+  date: Date;
+};
+
+// The rep's plan for the 30 days after certification (Module 12).
+export async function downloadActionPlanPdf(input: ActionPlanPdfInput) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "letter", orientation: "portrait" });
+  const dateText = input.date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  drawHeader(doc, "30-DAY ACTION PLAN", "My next 30 days", dateText);
+
+  const { section, callout } = sectionWriter(doc, 150, input.coachVerdictLabel, input.coachVerdict);
+  section("DAILY INPUTS", input.inputs, { pill: true });
+  section("ONE SKILL A WEEK", input.focus);
+  section("KEEPING SCORE", input.score);
+  section("THE BAD WEEK", input.badWeek);
+  section("DAY ONE", input.dayOne, { quote: true });
+  callout("ONE CHANGE TO YOUR PLAN", input.oneChange);
+
+  drawFooters(doc, input.date);
+  const stamp = input.date.toISOString().slice(0, 10);
+  doc.save(`30-Day Action Plan - ${stamp}.pdf`);
+}
+
+export type CertificatePdfInput = { name: string; certifiedOn: Date; examScore: string };
+
+// The Appointment-Setter Certification: landscape, one page.
+export async function downloadCertificatePdf(input: CertificatePdfInput) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "letter", orientation: "landscape" });
+  const w = doc.internal.pageSize.getWidth();
+  const h = doc.internal.pageSize.getHeight();
+  const cx = w / 2;
+  const dateText = input.certifiedOn.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+
+  doc.setFillColor(...GREEN).rect(0, 0, w, h, "F");
+  doc.setFillColor(255, 255, 255).rect(28, 28, w - 56, h - 56, "F");
+  doc.setDrawColor(...LIME).setLineWidth(3).rect(40, 40, w - 80, h - 80, "S");
+
+  doc.setFont("helvetica", "bold").setFontSize(10).setTextColor(...GREEN);
+  doc.text("MERCHANT SALES ACADEMY", cx, 108, { align: "center", charSpace: 2 });
+  doc.setFont("times", "normal").setFontSize(38).setTextColor(...INK);
+  doc.text("Appointment-Setter Certification", cx, 168, { align: "center" });
+  doc.setFont("helvetica", "normal").setFontSize(12).setTextColor(...MUTED);
+  doc.text("This certifies that", cx, 222, { align: "center" });
+  doc.setFont("times", "italic").setFontSize(34).setTextColor(...GREEN);
+  doc.text(clean(input.name) || "Merchant Sales Academy graduate", cx, 272, { align: "center" });
+  doc.setDrawColor(...LINE).setLineWidth(0.75).line(cx - 200, 288, cx + 200, 288);
+  doc.setFont("helvetica", "normal").setFontSize(12).setTextColor(...INK);
+  const body = doc.splitTextToSize("has completed all twelve modules of the Merchant Sales Academy cold-calling program, passed the final scenario call and the final exam, and committed to a 30-day action plan.", 480) as string[];
+  doc.text(body, cx, 320, { align: "center", lineHeightFactor: 1.5 });
+
+  doc.setFont("helvetica", "bold").setFontSize(8.5).setTextColor(...MUTED);
+  doc.text("CERTIFIED ON", cx - 150, h - 112, { align: "center", charSpace: 1.2 });
+  doc.text("FINAL EXAM", cx + 150, h - 112, { align: "center", charSpace: 1.2 });
+  doc.setFont("times", "normal").setFontSize(16).setTextColor(...INK);
+  doc.text(dateText, cx - 150, h - 90, { align: "center" });
+  doc.text(clean(input.examScore), cx + 150, h - 90, { align: "center" });
+
+  const stamp = input.certifiedOn.toISOString().slice(0, 10);
+  doc.save(`Appointment-Setter Certification - ${clean(input.name).replace(/[\/:*?"<>|]/g, "")} - ${stamp}.pdf`);
 }
