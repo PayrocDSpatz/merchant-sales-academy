@@ -1,0 +1,15 @@
+// What each simulated merchant knows beyond the profile the rep sees: details a
+// rep can uncover with good discovery, and how the people on the phone behave.
+// Import it only from API routes, never from a page or component, so it stays
+// out of the browser bundle where reps could read it.
+
+export const merchantPersonas: Record<string, string> = {
+  "lucias-kitchen":
+    "Catering orders are invoiced and paid by card over the phone about a week later, and two catering clients disputed charges this year, costing Lucia the food and a fee each time. Her processor contract renews in March. She doesn't know her effective rate. Two years ago a rep promised her big savings that never showed up, so she's wary of pitches. Marcus is friendly and protective of Lucia's time, and he knows the terminal freezes on busy Friday nights. Lucia is warm but busy and talks from the kitchen.",
+  "brightside-dental":
+    "The card terminal isn't connected to the practice software, so Karen types every total in twice and sometimes mistypes. More patients ask to pay balances by text or online, and Karen spends hours each week chasing unpaid balances. Dr. Moss rarely takes vendor calls and trusts Karen's judgment; Karen can set up a meeting herself if she's convinced it saves her time, and she'd want Dr. Moss to join for ten minutes. Karen is organized, polite, and short on time.",
+  "coastline-plumbing":
+    "About a third of jobs are paid by customers reading card numbers to Denise over the phone, and she keys them in. Rick thinks all processors are the same and only cares about the rate. Last year another rep quoted him a low teaser rate that went up after six months, and he's still annoyed about it. If the rep calls between 7:30 a.m. and 4:30 p.m., Denise answers and says Rick is in the field. Denise is friendly, practical, and the one who actually deals with the payments. Rick is blunt and impatient.",
+  "fern-and-fig":
+    "Online returns cost Priya processing fees she doesn't get back. The online store and the register run on separate systems, so her inventory never matches. She hates sales calls when customers are in the store, which is most of the time after 10, and especially on weekends. She's curious but guarded, and opens up if the rep is specific about her business.",
+};

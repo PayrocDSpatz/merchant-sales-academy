@@ -5,7 +5,7 @@ import { RequireAuth, useAuth } from "./AuthProvider";
 import { fullName } from "@/lib/db";
 
 const links = [
-  ["▦", "Dashboard", "/dashboard"], ["▶", "Training", "/courses"], ["◎", "Practice", "/practice"], ["✓", "Knowledge checks", "/quiz"], ["↗", "My progress", "/progress"],
+  ["▦", "Dashboard", "/dashboard"], ["▶", "Training", "/courses"], ["◎", "Practice", "/practice"], ["☏", "Call simulator", "/practice/roleplay"], ["✓", "Knowledge checks", "/quiz"], ["↗", "My progress", "/progress"],
 ];
 
 // Every learner page renders inside this shell, so it's also where sign-in is enforced.

@@ -10,9 +10,12 @@ type CoachRequest<T> = {
   system: string;
   content: string;
   format: AutoParseableBetaOutputFormat<T>;
+  // Lower effort for quick back-and-forth (the call simulator); medium by default.
+  effort?: "low" | "medium" | "high";
+  maxTokens?: number;
 };
 
-export async function runCoach<T>({ system, content, format }: CoachRequest<T>) {
+export async function runCoach<T>({ system, content, format, effort = "medium", maxTokens = 16000 }: CoachRequest<T>) {
   // Trimmed because a key pasted into the Vercel dashboard can pick up
   // stray whitespace, which the API rejects as an invalid key.
   const apiKey = process.env.ANTHROPIC_API_KEY?.trim();
@@ -24,10 +27,10 @@ export async function runCoach<T>({ system, content, format }: CoachRequest<T>) 
   try {
     const response = await client.beta.messages.parse({
       model: "claude-opus-5",
-      max_tokens: 16000,
+      max_tokens: maxTokens,
       betas: ["server-side-fallback-2026-07-01"],
       fallbacks: "default",
-      output_config: { effort: "medium", format },
+      output_config: { effort, format },
       system,
       messages: [{ role: "user", content }],
     });

@@ -14,12 +14,16 @@ const PROJECT_ID = "merchant-sales-academy";
 const JWKS = createRemoteJWKSet(new URL("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"));
 const DOCS = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents`;
 
-export type UsageKind = "coach" | "tts";
+// roleplay counts practice calls started; roleplayTurn counts every merchant
+// reply, so one call can't run up an unbounded bill.
+export type UsageKind = "coach" | "tts" | "roleplay" | "roleplayTurn";
 
 // Defaults; override per environment in Vercel without a code change.
 const LIMITS: Record<UsageKind, { perUser: number; team: number; label: string }> = {
   coach: { perUser: envInt("COACH_DAILY_LIMIT_PER_USER", 25), team: envInt("COACH_DAILY_LIMIT_TEAM", 300), label: "AI coach reviews" },
   tts: { perUser: envInt("TTS_DAILY_LIMIT_PER_USER", 60), team: envInt("TTS_DAILY_LIMIT_TEAM", 600), label: "read-alouds" },
+  roleplay: { perUser: envInt("ROLEPLAY_DAILY_LIMIT_PER_USER", 5), team: envInt("ROLEPLAY_DAILY_LIMIT_TEAM", 100), label: "practice calls" },
+  roleplayTurn: { perUser: envInt("ROLEPLAY_TURN_DAILY_LIMIT_PER_USER", 150), team: envInt("ROLEPLAY_TURN_DAILY_LIMIT_TEAM", 3000), label: "practice-call replies" },
 };
 
 function envInt(name: string, fallback: number) {

@@ -1,6 +1,6 @@
-// Merchants for Module 12's final scenario call. The rep picks one; the page
-// shows the profile and the API route sends the same profile to the coach, so
-// both sides grade against identical facts.
+// Merchants for Module 12's final scenario call and the call simulator. The rep
+// sees the profile. What the simulated merchant knows beyond it lives in
+// lib/merchantPersonas.ts, which only the server loads.
 
 export type Scenario = {
   id: string;

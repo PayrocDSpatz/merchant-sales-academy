@@ -1,7 +1,7 @@
 import type { JournalEntry } from "@/lib/db";
 import { modules } from "@/data/curriculum";
 
-// One saved exercise (reflection, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan, consistency plan, front-desk plan, call lab, final scenario or action plan), shown on My progress
+// One saved exercise (reflection, call plan, opener, pitch card, discovery plan, objection playbook, booking plan, follow-up plan, consistency plan, front-desk plan, call lab, final scenario, action plan or practice call), shown on My progress
 // and in the manager's view of a rep.
 
 const s = (v: unknown) => (typeof v === "string" ? v : "");
@@ -128,6 +128,15 @@ export function JournalEntryCard({ entry }: { entry: JournalEntry }) {
         {typeof d.movesHit === "number" && row("COACH: FIVE MOVES", `${d.movesHit} of 5`)}
         {row("COACH: BEST PART", s(d.strength))}
         {row(d.passed ? "COACH: PROTECT THIS" : "COACH: MOST IMPORTANT FIX", s(d.oneChange))}
+      </>}
+      {entry.type === "roleplay" && <>
+        {row("CALL", `${s(d.scenario)} (${s(d.vertical)}) at ${s(d.callTime)}. ${s(d.outcomeLabel)}.`)}
+        {row("COACH", s(d.summary))}
+        {row("COACH: BEST LINE", s(d.bestLine))}
+        {row("COACH: TURNING POINT", s(d.turningPoint))}
+        {row("COACH: TRY THIS", s(d.tryInstead))}
+        {row("COACH: ONE CHANGE", s(d.oneChange))}
+        {row("TRANSCRIPT", s(d.transcript))}
       </>}
       {entry.type === "action-plan" && <>
         {row("DAILY INPUTS", s(d.inputs))}
