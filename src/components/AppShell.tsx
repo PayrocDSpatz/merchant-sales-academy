@@ -35,13 +35,13 @@ function ManagerLink() {
 }
 
 function UserBar() {
-  const { profile, logOut } = useAuth();
+  const { user, profile, logOut } = useAuth();
   const initials = profile ? `${profile.firstName[0] ?? ""}${profile.lastName[0] ?? ""}`.toUpperCase() : "";
   return (
     <div style={{ minHeight: 72, background: "white", borderBottom: "1px solid var(--line)", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "0 4vw", gap: 14 }}>
       {profile && <>
         <span style={{ fontSize: 13, color: "var(--muted)" }}>{fullName(profile)}</span>
-        <span style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--green)", color: "white", display: "grid", placeItems: "center", fontWeight: 800 }}>{initials}</span>
+        <span title={user?.email ?? profile.email} style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--green)", color: "white", display: "grid", placeItems: "center", fontWeight: 800, cursor: "default" }}>{initials}</span>
         <button onClick={() => void logOut()} style={{ fontSize: 12, fontWeight: 800, color: "var(--green)", background: "none", border: 0, cursor: "pointer" }}>Sign out</button>
       </>}
     </div>
